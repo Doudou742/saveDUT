@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+echo DEBUG
+indice=1
+
+for i in $*
+do
+    echo Num $indice argument $i
+    indice=$(expr $indice + 1 )
+done
+
+
+
+
+
+

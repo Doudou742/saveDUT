@@ -1,0 +1,16 @@
+class Exo1 extends Program{
+    void testEstLettre() {
+	assertFalse( estLettre('Z') );
+	assertTrue ( estLettre('a') );
+	assertTrue ( estLettre('v') );
+	assertFalse( estLettre('!') );
+    } 
+
+    void testEstLettre(char c){
+	if ( c >= 'a' && c <= 'z' ){
+	    return true;
+	}
+	return false;
+    }
+
+}

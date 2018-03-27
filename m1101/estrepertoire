@@ -1,0 +1,2 @@
+#!/bin/bash
+expr 'd' = ls -ld $1 | cut -c 1 

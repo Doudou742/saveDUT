@@ -1,0 +1,45 @@
+package ctp;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class ServeurCesar {
+
+	private ServerSocket serveur;
+	private ServerSocket serveurBis;
+	
+	public ServeurCesar(int port) throws IOException {
+		this.serveur = new ServerSocket(port);
+	}
+	
+	public static String transform(String str, int shift) {
+		String result = "";
+		for (char c : str.toCharArray())
+			result += transform(c, shift);
+		return result;
+	}
+
+	private static char transform(char c, int shift) {
+		int startVal;
+		if (('a' <= c) && (c <= 'z'))
+			startVal = 'a';
+		else if (('A' <= c) && (c <= 'Z'))
+			startVal = 'A';
+		else
+			return c;
+		return (char) ((c - startVal + (shift < 0 ? shift + 26 : shift)) % 26 + startVal);
+	}
+	
+	public void traitement() throws IOException {
+		while (true) {
+			//attente d'un client
+			Socket client = serveur.accept();
+		}
+	}
+	
+	public static void main(String[] args) throws IOException {
+		ServeurCesar serv = new ServeurCesar(12345);
+	}
+	
+}

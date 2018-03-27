@@ -1,0 +1,154 @@
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Welcome to BOOKS !</title>
+    <script src='js/jquery-2.1.3.js'></script>
+    <script>
+// IMPORTANT ! Otherwise the DOM is not yet created !
+$(document).ready(function() {
+
+  // READ controler
+  $('#listbooks').click(function (event) {
+    console.info('within list books !');
+    $.ajax({
+      url: "/books",
+      type: "GET",
+      dataType : "json",
+      success: function( json ) {
+        console.log("bonjour");
+        $('#output').empty();
+        console.log(JSON.stringify(json));
+        
+        var list = '<ul>';
+        json.forEach(function(book, idx) {
+        list += '<li> ['+book.id+'] '+book.title+' de '+book.author+'</li>';
+        });
+        list += '</ul>';
+        $('#output').append(list);
+        $('#output li').css({'font-size': 20, 'font-family': 'Times New Roman'});
+        
+      },
+      error: function( xhr, status, errorThrown ) {
+        alert( "Sorry, there was a problem!" );
+        console.log( "Error: " + errorThrown );
+        console.log( "Status: " + status );
+        console.dir( xhr );
+      },
+      complete: function( xhr, status ) {
+        console.log('ajax request completed !');
+      }
+    }); // end ajax
+  }); // end click on listbooks
+
+
+// Create controler
+  $('#newbook').click(function (event) {
+    var author = $('input[name=author]').val();
+    var title  = $('input[name=title]').val();
+    $.ajax({
+      url: "/books",
+      type: "POST",
+      data: {
+        author: author,
+        title: title
+      },
+      dataType : "json",
+      success: function( json ) {
+        console.log("post");
+        $('#output').empty();
+        $('#output').append('Nouveau livre: ID='+json.id+' Titre: '+json.title+' Auteur: '+json.author);
+      },
+      error: function( xhr, status, errorThrown ) {
+        alert( "Sorry, there was a problem!" );
+        console.log( "Error: " + errorThrown );
+        console.log( "Status: " + status );
+        console.dir( xhr );
+      },
+      complete: function( xhr, status ) {
+        console.log('ajax request completed !');
+      }
+    }); // end ajax
+  }); // end create on listbooks
+
+
+// delete controler
+  $('#deletebook').click(function (event) {
+    var idlivre = $('#bookid[name=id]').val();
+    if (idlivre == "") {
+      return;
+    }
+
+    $.ajax({
+      url: "/books/"+idlivre,
+      type: "DELETE",
+      data: {
+        id: idlivre
+      },
+      dataType : "json",
+      success: function( json ) {
+        console.log("delete");
+        $('#output').empty();
+        $('#output').append('Livre supprimé: ID='+json.id+' Titre: '+json.title+' Auteur: '+json.author);
+      },
+      error: function( xhr, status, errorThrown ) {
+        alert( "Sorry, there was a problem!" );
+        console.log( "Error: " + errorThrown );
+        console.log( "Status: " + status );
+        console.dir( xhr );
+      },
+      complete: function( xhr, status ) {
+        console.log('ajax request completed !');
+      }
+    }); // end ajax
+  }); // end create on listbooks
+
+
+
+  
+
+
+}); // end document.ready
+    </script>
+  </head>
+  <body>
+<h1>Bienvenue dans votre bibliothèque !</h1>
+<img src='img/books.jpg' width='200'></img>
+<p>
+Sélectionnez l'action que vous souhaitez réaliser:
+</p>
+<ul>
+  <li><div id='listbooks'>Lister tous vos livres</div></li>
+  <li>
+    <form>
+      Ajouter un nouveau livre. Auteur:
+      <input type='text'   name ='author' value='auteur'>
+      <input type='text'   name ='title'  value='titre'>
+      <input id='newbook' type='button' name = 'submit' value='Ok'>
+    </form>
+  </li>
+  <li>
+    <div id='modifybook'>
+      <form>
+        Modifier un livre existant
+        ID: <input type='number' name ='id'  id="modifyy"   value='id'>
+        <input type='text'   name ='author' id="autor" value='auteur'>
+        <input type='text'   name ='title'  id="title" value='titre'>
+        <input id='updatebook' type='button' name = 'submit' value='Ok'>
+      </form>
+    </div>
+  </li>
+  <li>
+    <div>
+      <form>
+        Supprimer un livre existant.
+        ID: <input id='bookid' type='text' name ='id'     value='id'>
+        <input id='deletebook' type='button' name = 'submit' value='Ok'>
+      </form>
+    </div>
+  </li>
+</ul>
+<div id='output'>
+</div>
+  </body>
+</html>

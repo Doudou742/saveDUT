@@ -1,0 +1,24 @@
+#!/bin/bash
+
+
+
+rep=""
+
+if  ! est-executable $1
+then
+    exit 1
+fi
+
+
+for i in $(ls $1)
+do
+   
+    if est-executable $1/$i
+       
+    then
+        
+	rep=$rep:$i
+    fi
+
+done
+echo $rep

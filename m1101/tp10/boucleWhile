@@ -1,0 +1,11 @@
+#!/bin/bash
+
+PATH=$(cd $(dirname $0) ; pwd):$PATH
+
+indice=1;
+
+while ! estpareil $indice 11 ; do
+
+	echo "valeur de indice vaut $indice";
+	indice=$(expr $indice + 1)
+done

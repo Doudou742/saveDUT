@@ -1,0 +1,22 @@
+                    Liste des relations
+  Schéma   |         Nom         |   Type   | Propriétaire 
+-----------+---------------------+----------+--------------
+ deschamg  | aeroport            | table    | deschamg
+ deschamg  | avion               | table    | deschamg
+ deschamg  | commande            | table    | deschamg
+ deschamg  | compagnies          | table    | deschamg
+ deschamg  | fournisseur         | table    | deschamg
+ deschamg  | fournisseur_fno_seq | séquence | deschamg
+ deschamg  | ligne               | table    | deschamg
+ deschamg  | modeles             | table    | deschamg
+ deschamg  | numeros             | séquence | deschamg
+ deschamg  | pilote              | table    | deschamg
+ deschamg  | pilote_pno_seq      | séquence | deschamg
+ deschamg  | produit             | table    | deschamg
+ deschamg  | produit_pno_seq     | séquence | deschamg
+ deschamg  | vol                 | table    | deschamg
+ pg_temp_3 | adresses            | table    | deschamg
+ pg_temp_3 | noms                | table    | deschamg
+ pg_temp_3 | prenoms             | table    | deschamg
+(17 lignes)
+

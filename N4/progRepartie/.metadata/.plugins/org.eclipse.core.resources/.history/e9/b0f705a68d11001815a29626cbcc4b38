@@ -1,0 +1,20 @@
+package fr.ulille.iut.m4102;
+
+public class TalonServeur implements Runnable{
+
+	private String mess;
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void setMess(String mess) {
+		this.mess = mess;
+	}
+
+	public String getMess() {
+		return this.mess;
+	}
+}

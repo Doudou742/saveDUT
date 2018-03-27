@@ -1,0 +1,35 @@
+class pendu extends Program{
+
+    String motSaisie = "";
+    
+
+    String saisieQueDesLettres(){
+
+	String tmp = "";
+	boolean valide = false;
+	println("saisir mot biloute: ");
+	tmp = readString();
+
+	for ( int i = 0; i < tmp.length(); i++ ){
+	    while ( !valide ){
+		if ( charAt(tmp,i) < 'a' && charAt(tmp,i) > 'z' ){
+		    println("j'ai demandé de saisir un mot: ");
+		    tmp = readString();
+		}
+		else
+		    valide = true;
+	    }
+	}
+	return tmp;
+    }
+
+
+    void algorithm(){
+
+	saisieQueDesLettres();
+	
+    }
+
+    
+    
+}

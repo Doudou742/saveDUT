@@ -1,0 +1,22 @@
+package exo4;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+
+public class SrvBeg {
+
+	private ServerSocket server;
+	
+	public SrvBeg(int port) throws IOException {
+		this.server = new ServerSocket(port);
+	}
+	
+	
+	public void traitement() {
+		
+	}
+	
+	public static void main(String[] args) {
+		SrvBeg serveurBeg = new SrvBeg(9876);
+	}
+}

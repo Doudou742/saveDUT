@@ -1,0 +1,25 @@
+var toto = $('#exo1');
+toto.show();
+
+q3 -> pour les class
+$('.impair').hide();
+
+q4 -> liens d'une liste
+$('ul a').show();
+
+q5 ->
+$('#exo1 > p').hide();
+
+q6 ->
+$('#exo1 > ul li').hide();
+
+Titre de niveau 3:
+q1) $('#exo2 :first-child').show();
+q2) var toto = $('#exo2 a:first-child').attr('href','http://www.univ-lille1.fr');
+q3) var hauteurBis = $('#exo2 li').height(30);
+console.log(hauteurBis);
+q4) console.log($('#exo2 input').attr('name'));
+    console.log($('#exo2 input').attr('value'));
+//change la valeur   
+$('#exo2 input').attr('value','nom').val('20');
+q5) 

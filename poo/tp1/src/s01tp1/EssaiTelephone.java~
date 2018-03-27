@@ -1,0 +1,10 @@
+package s01tp1;
+import tps.Telephone;
+public class EssaiTelephone{
+    public static void main(String[] arg){
+	for (int i = 0; i < 5; i++){
+	    Telephone num = new Telephone(i*11,i*11,i*11,i*11,i*11);
+	    System.out.println(num);
+	}
+    }
+}

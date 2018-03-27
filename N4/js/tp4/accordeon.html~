@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+h3 {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.active, h3:hover {
+    background-color: #ccc; 
+}
+
+article {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+}
+    
+</style>
+</head>
+<body>
+
+<h2>Accordeon</h2>
+<div id = "accordeon">
+    <h3>Accordion 1</h3>
+	  <article>L'accordéon est un instrument de musique de la famille des vents. Le nom d' accordéon regroupe une famille d'instruments à clavier, polyphonique, utilisant des anches libres excitées par un vent variable fourni par le soufflet actionné par le musicien. Ces différents instruments peuvent être de factures très différentes.</article>
+	<h3>Accordion 2</h3>
+    <article>Le Sheng, instrument de musique polyphonique religieux utilisé dans les orchestres de cour et de théâtre en Chine ancienne, est le plus ancien instrument à anche libre connu : il est constitué d'une chambre à vent sur laquelle sont fixés des tuyaux de bambou où vibre l'anche.</article>
+	<h3>Accordion 3</h3>
+  <article>En 1829, Cyrill Demian, facteur de piano et orgues à Vienne (Autriche), fabrique un instrument dans la veine de Buschmann et Haeckl, dont il veut déposer le brevet sous le nom d'« Aeolina ». Ce nom étant déjà pris par un modèle Buschmann et ce nouvel instrument étant, contrairement à ses prédécesseurs, voué à l'accompagnement et, en ce sens, n'émettant que des accords, Demian dépose son brevet6 sous le nom d'« Accordion »
+</article>
+</div>
+
+
+<h2>Accordeon 2</h2>
+<div id = "accordeon2">
+    <h3>Accordion 1</h3>
+	  <article>L'accordéon est un instrument de musique de la famille des vents. Le nom d' accordéon regroupe une famille d'instruments à clavier, polyphonique, utilisant des anches libres excitées par un vent variable fourni par le soufflet actionné par le musicien. Ces différents instruments peuvent être de factures très différentes.</article>
+	<h3>Accordion 2</h3>
+    <article>Le Sheng, instrument de musique polyphonique religieux utilisé dans les orchestres de cour et de théâtre en Chine ancienne, est le plus ancien instrument à anche libre connu : il est constitué d'une chambre à vent sur laquelle sont fixés des tuyaux de bambou où vibre l'anche.</article>
+	<h3>Accordion 3</h3>
+  <article>En 1829, Cyrill Demian, facteur de piano et orgues à Vienne (Autriche), fabrique un instrument dans la veine de Buschmann et Haeckl, dont il veut déposer le brevet sous le nom d'« Aeolina ». Ce nom étant déjà pris par un modèle Buschmann et ce nouvel instrument étant, contrairement à ses prédécesseurs, voué à l'accompagnement et, en ce sens, n'émettant que des accords, Demian dépose son brevet6 sous le nom d'« Accordion »
+</article>
+</div>
+
+
+<script>
+	$( function() {
+    $( "#accordeon" ).accordion();
+    $( "#accordeon2" ).accordion();
+    
+  } );
+    class Accordeon {
+        constructor(element) {
+            var accordeon = element;
+            
+        }
+    // définir la méthode afficherSection()
+    }
+</script>
+
+</body>
+</html>

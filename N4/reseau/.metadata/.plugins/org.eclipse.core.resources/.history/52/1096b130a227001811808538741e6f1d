@@ -1,0 +1,10 @@
+package ctp;
+
+import java.io.File;
+
+public class ClientCesar {
+
+	private File fichierConfig;
+	private Socket socket;
+	
+}

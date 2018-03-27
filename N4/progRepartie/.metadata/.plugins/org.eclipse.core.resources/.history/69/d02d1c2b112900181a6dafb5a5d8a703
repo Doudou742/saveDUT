@@ -1,0 +1,21 @@
+package fr.ulille.iut;
+
+import java.util.Map;
+
+public class CommandePizza {
+	private int id;
+	private String nom;
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String users) {
+		this.nom = users;
+	}
+}

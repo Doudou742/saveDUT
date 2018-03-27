@@ -1,0 +1,7 @@
+#!/bin/bash
+
+PATH=$(cd $(dirname $0) ; pwd):$PATH
+
+estpareil $(ls -l $1 | cut -c4) 'x'
+
+

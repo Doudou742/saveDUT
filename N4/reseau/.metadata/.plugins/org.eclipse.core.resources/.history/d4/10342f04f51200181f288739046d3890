@@ -1,0 +1,21 @@
+package exo3;
+
+import java.net.Socket;
+
+public class ClientDaytime {
+
+	private Socket socket;
+	private final int PORT = 13;
+	
+	
+	public ClientDaytime(Socket socket) {
+		this.socket = socket;
+	}
+	
+	public static void main(String[] args) {
+		
+	}
+	
+	
+	
+}

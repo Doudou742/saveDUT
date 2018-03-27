@@ -1,0 +1,13 @@
+class exercice4 extends Program{
+    public void algorithm(){
+
+	String reponse = "";
+	String mot = "";
+	println("saisir mot: ");
+	mot = readString();
+	for ( int i = 0; i < mot.length(); i++ ){
+	    reponse = substring(mot, i, i+1);
+	    reponse += " \n ";
+	}
+    }
+}

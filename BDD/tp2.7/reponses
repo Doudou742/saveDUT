@@ -1,0 +1,12 @@
+
+create view messcores as select * from scores where login = USER;
+
+create view maximums as select max(score), id, login from scores group by login, id;
+
+GRANT USAGE ON SCHEMA deschamg TO doublecl;
+
+grant SELECT on messcores to doublecl;
+
+grant INSERT on jeu TO doublecl ;
+
+revoke ALL on scores from doublecl ;

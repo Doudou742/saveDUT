@@ -1,0 +1,29 @@
+#include <stdio.h>
+/*
+int mon_strlen(char s[]) {
+  int i = 0;
+  while (s[i] != '\0') {
+    i++;
+  }
+  return i;
+}
+*/
+int mon_strlen(const char *s) {
+  int i = 0;
+  while (s[i] != '\0') {
+    i++;
+  }
+  return i;
+}
+
+int mon_strcmp(const char * s1, const char * s2) {
+  
+}
+
+int main(void) {
+  char liste[3] = {'a', 'b', '\0'};
+  mon_strlen(&liste[0]);
+  printf("\n taille tableau : %d \n", mon_strlen(liste));
+
+  return 0;
+}

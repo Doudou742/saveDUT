@@ -1,0 +1,39 @@
+CREATE TABLE avion 
+(ano INTEGER,
+type char(5),
+places INTEGER CHECK (places>100 AND places<500),
+compagnie text,
+CONSTRAINT pk_avion PRIMARY KEY (ano));
+
+CREATE TABLE pilote
+(pno SERIAL,
+nom TEXT NOT NULL,
+prenom text not null,
+adresseP text not null, 
+CONSTRAINT pk_pilote PRIMARY KEY (pno));
+
+CREATE TABLE aeroport
+(rcode char(3),
+libelle text,
+ville text,
+adresseA text,
+CONSTRAINT pk_aeroport PRIMARY KEY(rcode));
+
+CREATE TABLE ligne (
+lno integer,
+depart char(3),
+arrivee char(3),
+CONSTRAINT pk_ligne PRIMARY KEY (lno),
+CONSTRAINT fk_depart FOREIGN KEY (depart) REFERENCES aeroport(rcode) ON DELETE SET NULL ON UPDATE CASCADE,
+CONSTRAINT fk_arrivee FOREIGN KEY (arrivee) REFERENCES aeroport(rcode) ON DELETE SET NULL ON UPDATE CASCADE);
+
+CREATE TABLE vol (
+ano INTEGER,
+pno INTEGER,
+lno INTEGER,
+hdepart TIME,
+harrivee TIME,
+CONSTRAINT pk_vol PRIMARY KEY (ano,pno,lno),
+CONSTRAINT fk_avion FOREIGN KEY (ano) REFERENCES avion(ano) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT fk_pilote FOREIGN KEY (pno) REFERENCES pilote(pno) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT fk_ligne FOREIGN KEY (lno) REFERENCES ligne(lno) ON DELETE CASCADE ON UPDATE CASCADE);

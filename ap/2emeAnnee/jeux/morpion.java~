@@ -1,0 +1,24 @@
+class morpion extends Program{
+
+
+    void initialiser(char[][] plateau){
+	for ( int ligne = 0; ligne < plateau.length; ligne++ ){
+	    for ( int colonne = 0; colonne < plateau[0].length; colonne++ ){
+		plateau[ligne][colonne] = ' ';
+	    }
+	}
+    }
+    
+
+    
+    void algorithm(){
+
+	//initialiser plateau
+	//joueur doit choisir une coordonnee
+	//
+	
+    }
+    
+
+
+}

@@ -1,0 +1,11 @@
+- 23 ->35: b
+  - 01 ca -> 458 : s
+  - 00 00 00 0c -> 12: i
+  - ff ff ff ff ff ff ff 47: l
+  - 72 -> r: c
+  - 00 05 -> 5: n
+  - 42 69 6c 6c 79 -> Billy: str
+
+2) java Decoder donnees.bin
+
+3) 64 03 e8 00 00 27 10 00 00 00 00 00 01 86 a0 41 00 05 42 72 75 6e 6f

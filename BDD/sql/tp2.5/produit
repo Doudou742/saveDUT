@@ -1,0 +1,6 @@
+CREATE TABLE produit
+( pno SERIAL,
+libelle text,
+couleur text,
+poids INTEGER,
+CONSTRAINT pk_produit PRIMARY KEY (pno));

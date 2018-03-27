@@ -1,0 +1,15 @@
+#!/bin/bash
+PATH=$(cd $(dirname $0) ; pwd):$PATH
+
+
+if ! test estrepertoire $1
+
+then 
+	variable=$(ls - l $1 | cut -c 4)  
+	if $(estpareil $variable x) 
+	then 
+		echo ok	
+	fi
+
+fi 
+

@@ -1,0 +1,2 @@
+INSERT INTO produit (libelle, couleur) VALUES ('chaise', 'rouge');
+INSERT INTO produit (libelle, couleur) VALUES ('bureau', 'gris');

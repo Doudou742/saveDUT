@@ -1,0 +1,80 @@
+package fr.ulille.iut;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+/**
+ * Root resource (exposed at "myresource" path)
+ */
+@Path("Pizza")
+public class Pizza {
+	
+	private String nom, base;
+	private int taille, prix, id;
+	private String[] ingredients;
+	
+	public Pizza() {
+	}
+	
+	public Pizza(String nom, int taille, int prix) {
+		this.nom = nom;
+		this.taille = taille;
+		this.prix = prix;
+	}
+
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public int getTaille() {
+		return taille;
+	}
+
+	public void setTaille(int taille) {
+		this.taille = taille;
+	}
+
+	public int getPrix() {
+		return prix;
+	}
+
+	public void setPrix(int prix) {
+		this.prix = prix;
+	}
+	public String getBase() {
+		return base;
+	}
+
+	public void setBase(String base) {
+		this.base = base;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String[] getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(String[] ingredients) {
+		this.ingredients = ingredients;
+	}
+	
+	
+ 
+    
+}

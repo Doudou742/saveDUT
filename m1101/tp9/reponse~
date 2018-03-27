@@ -1,0 +1,4 @@
+exo 1)
+q1) ./montrer-arguments "echo bonjour le monde"
+q2) ./montrer-arguments echo bonjour le monde
+q3) 

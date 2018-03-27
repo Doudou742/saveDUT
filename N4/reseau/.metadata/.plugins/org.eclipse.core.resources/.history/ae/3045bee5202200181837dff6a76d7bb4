@@ -1,0 +1,64 @@
+package projet;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+
+public class Client {
+	
+	/**
+	 * socketPi est la socket de contrôle interprète les commandes reçues du client (sur le canal de controle)
+	 * socketDTP est la socket de transfert des fichiers à fermer après chaque fin de transfert
+	 * PORTPI est le port utilisé pour la socket PI
+	 * PORTDTP est le port utilisé pour la socket DTP
+	 * userName correspond au login demandé lors de la connection 
+	 */
+	
+	private Socket socketPi; 
+	private Socket socketDTP;
+	
+	private final int PORTPI = 9876;
+	private final int PORTDTP = 9875;
+	
+	private String login;
+	
+	/**
+	 * Constructeur d'un client qui init les deux sockets (DTP et PI)
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
+	public Client() throws UnknownHostException, IOException {
+		this.socketPi = new Socket("172.18.48.143",PORTPI);
+		//this.socketDTP = new Socket("172.18.48.143",PORTDTP);
+	}
+	
+	public void traitement() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(socketPi.getInputStream()));
+		PrintWriter pw = new PrintWriter(socketPi.getOutputStream(),true);
+		String rep = "";
+		Scanner scan = new Scanner(System.in);
+		
+		while (true) {
+			rep += scan.nextLine();
+			if (rep.equals(null) || rep == " ") {
+				break;
+			}
+			pw.println(rep);
+			
+		}
+		
+		this.socketPi.close();
+		
+	}
+	
+	public static void main(String[] args) throws UnknownHostException, IOException {
+		Client client = new Client();
+		client.traitement();
+	}
+	
+}

@@ -1,0 +1,36 @@
+package projet;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class Client {
+	
+	/**
+	 * socketPi est la socket de contrôle interprète les commandes reçues du client (sur le canal de controle)
+	 * socketDTP est la socket de transfert des fichiers à fermer après chaque fin de transfert
+	 * PORTPI est le port utilisé pour la socket PI
+	 * PORTDTP est le port utilisé pour la socket DTP
+	 */
+	
+	private Socket socketPi; 
+	private Socket socketDTP;
+	
+	private final int PORTPI = 21;
+	private final int PORTDTP = 20;
+	
+	public Client() throws UnknownHostException, IOException {
+		this.socketPi = new Socket(InetAddress.getLocalHost(),PORTPI);
+		this.socketDTP = new Socket(InetAddress.getLocalHost(),PORTDTP);
+	}
+	
+	public void traitement() {
+		
+	}
+	
+	public static void main(String[] args) {
+		
+	}
+	
+}

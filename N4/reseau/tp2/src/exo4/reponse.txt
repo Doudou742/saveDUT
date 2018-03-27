@@ -1,0 +1,15 @@
+q1)
+page url: https://fr.wikipedia.org/wiki/Liste_de_ports_logiciels
+https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml
+
+q2)
+daytime : 13
+echo: 7
+chargen: 19
+telnet: 23
+ssh: 22
+smtp: 25
+pop3: 110
+ftp: 20
+imap2: 143
+imap3: 220

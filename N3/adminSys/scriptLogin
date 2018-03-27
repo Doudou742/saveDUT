@@ -1,0 +1,8 @@
+#!/bin/bash
+listeUser=`getent group info-fi2-m | cut -d : -f4 | tr ',' '\n'`
+for user in $listeUser
+do
+    echo "Ajout de l'utilisateur : [$user]"
+    ssh root@192.168.194.200 adduser --disabled-password --gecos GECOS $user
+done
+

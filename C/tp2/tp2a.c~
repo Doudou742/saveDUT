@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int main(void) {
+  int nbParenth = 0;
+  int cpt = 0;
+  int charSaisie;
+
+  while (cpt < 10){
+    printf("\n saisir un char \n ");
+    charSaisie = getchar();
+    if (charSaisie == 40) {
+      nbParenth = nbParenth + 1;
+    }
+    if (charSaisie == 41) {
+      nbParenth = nbParenth -1;
+    }
+    cpt = cpt + 1;
+  }
+  
+  if (nbParenth == 0) {
+    return 0;
+  }
+  else {
+    return 1;
+  }
+}

@@ -1,0 +1,7 @@
+CREATE TABLE fournisseur 
+( fno SERIAL,
+nom text,
+prenom text,
+adresse text,
+tel text,
+CONSTRAINT pk_fournisseur PRIMARY KEY (fno) );

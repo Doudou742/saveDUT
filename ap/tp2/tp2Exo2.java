@@ -1,0 +1,15 @@
+class tp2Exo2 extends Program{
+    void algorithm(){
+	boolean moyenneAtteinte = false;
+	int x = readInt();
+	if ( x >= 10 )
+	    moyenneAtteinte = true; println("gg");
+	if ( moyenneAtteinte )
+	    println("t'as la moyenne");
+	else
+	    println("nope");
+	
+	    
+    }
+    
+}

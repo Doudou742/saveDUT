@@ -1,0 +1,38 @@
+class exercice2 extends Program{
+
+
+
+    void testCreerTableauOrdonne() {
+	assertArrayEquals(new int[]{1,2,3,4,5,6,7,8,9,10},  creerTableauOrdonne());
+    }
+
+    int[] creerTableauOrdonne(){
+	int[] tab = new int[10];
+	for ( int i = 0; i < tab.length; i++ ){
+	    tab[i] = i + 1;
+	}
+	return tab;
+    }
+
+
+    void testShift() {
+	int[] tab = creerTableauOrdonne();
+	shift(tab);
+	assertArrayEquals(new int[]{10,1,2,3,4,5,6,7,8,9}, tab);
+	tab = new int[]{2, 5, 3, 1, 7};
+	shift(tab);
+	assertArrayEquals(new int[]{7, 2, 5, 3, 1}, tab);
+    }
+    
+    void shift(int[] tab){
+	int save = tab[0];
+        for ( int i = 1; i < tab.length; i++ ){
+	    if ( i == (tab.length - 1) ){
+		tab[0] = tab[i];
+	    }
+	    tab[i+1] = tab[i];
+	}
+
+	
+    }
+}

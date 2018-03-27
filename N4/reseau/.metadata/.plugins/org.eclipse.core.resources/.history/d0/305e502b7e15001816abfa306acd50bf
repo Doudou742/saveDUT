@@ -1,0 +1,9 @@
+package exo4;
+
+import java.net.ServerSocket;
+
+public class ServeurDaytime {
+
+	private ServerSocket serveurSocket;
+	
+}

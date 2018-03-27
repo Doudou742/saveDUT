@@ -1,0 +1,40 @@
+package exo1;
+
+import java.io.File;
+
+public class CopieBinaire {
+
+	private String src;
+	private String dst;
+	
+	public CopieBinaire(String src, String dst) {
+		this.src = src;
+		this.dst = dst;
+	}
+	
+	public boolean verifieExistenceFichierSource(File f) {
+		f = new File(src);
+		if (f.exists()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean verifieExistenceFichierDestination(File f) {
+		f = new File(dst);
+		if (f.exists()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
+	
+	
+	
+	
+}

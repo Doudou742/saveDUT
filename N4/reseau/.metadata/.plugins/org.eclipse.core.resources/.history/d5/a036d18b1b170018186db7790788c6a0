@@ -1,0 +1,20 @@
+package exo4;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+
+public class ServeurBegMT {
+
+	private ServerSocket serveur;
+	
+	
+	public ServeurBegMT(int port) {
+		try {
+		    serveur = new ServerSocket(port);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		    System.exit(1);
+		}
+	}
+	
+}

@@ -1,0 +1,11 @@
+var toto = $('#exo1');
+toto.show();
+
+q3 -> pour les class
+$('.impair').hide();
+
+q4 -> liens d'une liste
+$('ul a').show();
+
+q5 ->
+

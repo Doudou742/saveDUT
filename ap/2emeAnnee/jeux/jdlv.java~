@@ -1,0 +1,87 @@
+class jdlv extends Program{
+
+
+
+    void initialisation(boolean[][] tab){
+	for ( int l = length(tab,1); l < length(tab,1); l++ ){
+	    for ( int c = length(tab,2); c < length(tab,2); c++ ){
+		int rand = (int) (random()*10)+1;
+		if ( rand <= 2 ){
+		    tab[l][c] = true;
+		}
+		else
+		    tab[l][c] = false;
+	    }
+	}
+	
+    }
+
+
+    void affichage(boolean[][] tab){
+	for ( int l = length(tab,1); l < length(tab,1); l++ ){
+	    for ( int c = length(tab,2); c < length(tab,2); c++ ){
+		if ( tab[l][c] == true ){
+		    print("1");
+		}
+		else
+		    print("0");
+	    }
+	    println();
+	}
+    }
+
+    boolean[][] calculNouvelleG(boolean[][] tab, boolean[][] newTab){
+	int nbVoisin = 0;
+	for ( int l = 1; l < length(tab,1)-1; l ++ ){
+	    for ( int c = 1; c < length(tab,2)-1; c++ ){
+
+		    if ( tab[l][c-1]   == true ){ nbVoisin+=1;}
+		    if ( tab[l][c+1]   == true ){ nbVoisin+=1;}
+		    if ( tab[l-1][c ]  == true ){ nbVoisin+=1;}
+		    if ( tab[l+1][c ]  == true ){ nbVoisin+=1;}
+		    if ( tab[l-1][c-1] == true ){ nbVoisin+=1;}
+		    if ( tab[l+1][c+1] == true ){ nbVoisin+=1;}
+		    if ( tab[l+1][c-1] == true ){ nbVoisin+=1;}
+		    if ( tab[l-1][c+1] == true ){ nbVoisin+=1;}
+		
+
+		    if ( nbVoisin == 3 && tab[l][c] == false ){
+			newTab[l][c] = true;
+		    }
+		    if ( nbVoisin == 2 && tab[l][c] == true ){
+			newTab[l][c] = true;
+		    }
+		    else{
+			newTab[l][c] = false;
+		    }
+	    }
+	}
+	return newTab;
+    }
+
+
+
+    void algorithm(){
+
+	boolean[][] plateau = new boolean[10][11];
+	boolean[][] plateauNewge = new boolean[10][11];
+	
+	initialisation(plateau);
+	affichage(plateau);
+
+	plateauNewge = calculNouvelleG(plateau,plateauNewge);
+	for ( int l = 0; l < length(plateau,1); l++ ){
+	    for ( int c = 0; c < length(plateau,2); c++ ){
+		plateau[l][c] = plateauNewge[l][c];
+	    }
+	}
+	
+		
+	affichage(plateauNewge);
+	
+	
+    }
+
+
+
+}

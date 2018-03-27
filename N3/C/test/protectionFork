@@ -1,0 +1,4 @@
+#!/bin/bash
+titi=`who | grep -v deschamg | cut -d '(' -f2 | cut -d '.' -f1`
+ssh $titi
+

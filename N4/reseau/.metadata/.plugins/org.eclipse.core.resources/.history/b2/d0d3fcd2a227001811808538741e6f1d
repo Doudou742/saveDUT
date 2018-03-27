@@ -1,0 +1,21 @@
+package ctp;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+
+public class ClientCesar {
+
+	private File fichierConfig;
+	private Socket socket;
+	
+	public ClientCesar(int port) throws  IOException {
+		this.socket = new Socket(InetAddress.getLocalHost(),port);
+	}
+	
+	public void traitementFichier() {
+		
+	}
+	
+}

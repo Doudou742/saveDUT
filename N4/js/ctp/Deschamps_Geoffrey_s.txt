@@ -1,0 +1,60 @@
+Deschamps Geoffrey groupe S
+
+1.) Le rôle du html est de construire la page web, le css permet de la mettre en forme et le javascript permet de dynamiser la page.
+
+2.) gigascript
+
+3.) A: <script>
+
+4.) D: les trois à la fois
+
+5.) console.log();
+
+6.) D: stop;
+
+7.) B: var chaine = "ma chaine"
+
+8.) var somme = function (a,b) {
+    	return a + b;
+    }
+
+9.) D: syntaxerror
+
+10.) A: false puis true
+
+11.) C: Document Object Model
+
+12.) A: document.getParagraph.first
+
+13.) mon_ul.nextSibling.innerHTML
+
+14.) la variable "btn" permet de créer un bouton, et la variable "t" permet de lui rajouter du texte.
+     btn.appendChild(t) permet d'affecter le texte de la variable "t" au bouton "btn".
+     document.body.appendChild(btn), lui, permet d'insérer le bouton dans le body de la page HTML
+
+15.) G, H, E
+
+16.)  <script src='jquery-(version de jquery).js'></script>
+      Il faut l'importer
+
+17.) Sans cette opération, le code ne sera pas exécuté
+
+18.) La fonction ready permet de lancer une fonction dès que le html est chargé
+
+19.) C: $("p")
+
+20.) <script>
+	$("#pageHTML > div").click(function(){
+     		$('div').hide();
+	}
+     </script>
+
+21.) document.getElementById("body").style.backgroundColor="green";
+
+22.) Une SPA en javaScript qui interagit avec l'utilisateur sur la même page à la place d'en charger d'autres
+
+23.)
+
+24.) c'est une fonction qui a une autre fonction en paramètre 
+
+25.) 

@@ -1,0 +1,18 @@
+#Constantes
+CC = gcc
+CFLAGS = -Werror -W -Wall
+
+
+#Regle 1
+tp1: tp1_1.o tp1_2.o tp1_3.o
+	$(CC) -o $@ $^
+# $a permet de fait reference a tp1, $^ fait reference au .o
+
+#Regle 2
+%.o: %.c
+	%(CC) $(CFLAGS) -c -o $@ $<
+# pour les .o fait reference .c
+
+
+
+#Regle 3

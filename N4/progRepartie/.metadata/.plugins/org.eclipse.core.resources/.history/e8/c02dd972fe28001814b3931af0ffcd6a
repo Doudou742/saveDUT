@@ -1,0 +1,167 @@
+package fr.ulille.iut;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+
+/**
+ * Ressource Pizza (accessible avec le chemin "/Pizzas")
+ */
+@Path("commandes")
+public class CommandeRessource {
+	// Pour l'instant, on se contentera d'une variable statique pour conserver
+	// l'état
+	private static Map<String, CommandePizza> Commande = new HashMap<>();
+
+
+	@Context
+	public UriInfo uriInfo;
+
+	/**
+	 * Une ressource doit avoir un contructeur (éventuellement sans arguments)
+	 */
+	public CommandeRessource() {
+	}
+
+	/**
+	 * Méthode de création d'un utilisateur qui prend en charge les requêtes HTTP
+	 * POST La méthode renvoie l'URI de la nouvelle instance en cas de succès
+	 *
+	 * @param Pizza
+	 *            Instance d'utilisateur à créer
+	 * @return Response le corps de la réponse est vide, le code de retour HTTP est
+	 *         fixé à 201 si la création est faite L'en-tête contient un champs
+	 *         Location avec l'URI de la nouvelle ressource
+	 */
+	@POST
+	public Response createCommande(CommandePizza commande) {
+		// Si l'utilisateur existe déjà, renvoyer 409
+		if (Commande.containsKey(commande.getClient())) {
+			return Response.status(Response.Status.CONFLICT).build();
+		} else {
+			Commande.put(commande.getClient(), commande);
+
+			// On renvoie 201 et l'instance de la ressource dans le Header HTTP 'Location'
+			URI instanceURI = uriInfo.getAbsolutePathBuilder().path(commande.getClient()).build();
+			return Response.created(instanceURI).build();
+		}
+	}
+
+	/**
+	 * Method prenant en charge les requêtes HTTP GET.
+	 *
+	 * @return Une liste d'utilisateurs
+	 */
+	@GET
+	public List<CommandePizza> getCommandes() {
+		return new ArrayList<CommandePizza>(Commande.values());
+	}
+
+	/**
+	 * Méthode prenant en charge les requêtes HTTP GET sur /Pizzas/{login}
+	 *
+	 * @return Une instance de Pizza
+	 */
+	@GET
+	@Path("{id}")
+	@Produces({"application/json", "application/xml"})
+	public CommandePizza getCommande(@PathParam("id") String id) {
+		// Si l'utilisateur est inconnu, on renvoie 404
+		if (!Commande.containsKey(id)) {
+			throw new NotFoundException();
+		} else {
+			return Commande.get(id);
+		}
+	}
+	
+
+	@GET
+	@Path("/nom/{nom}")
+	@Produces({"application/json", "application/xml"})
+	public List<CommandePizza> getCommandeNom(@PathParam("nom") String nom) {
+		ArrayList<CommandePizza> result = new ArrayList<>();
+		for(CommandePizza c: Commande.values()) {
+			if(nom.equals(c.getNom())) {
+				result.add(c);
+			}
+		}
+		return result;
+	}
+	
+
+	@DELETE
+	@Path("{id}")
+	public Response deleteCommande(@PathParam("id") String id) {
+		// Si l'utilisateur est inconnu, on renvoie 404
+		if (!Commande.containsKey(id)) {
+			throw new NotFoundException();
+		} else {
+			Commande.remove(id);
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+	}
+
+	/**
+	 * Méthode prenant en charge les requêtes HTTP DELETE sur /Pizzas{login}
+	 *
+	 * @param login
+	 *            le login de l'utilisateur à modifier
+	 * @param Pizza
+	 *            l'entité correspondant à la nouvelle instance
+	 * @return Un code de retour HTTP dans un objet Response
+	 */
+	@PUT
+	@Path("{id}")
+	public Response modifyPizza(@PathParam("id") String id, Commande commande) {
+		// Si l'utilisateur est inconnu, on renvoie 404
+		if (!Commande.containsKey(commande.getId())) {
+			throw new NotFoundException();
+		} else {
+			Commande.put(commande.getNom(), commande);
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+	}
+	
+	/**
+	 * Méthode de création d'un utilisateur qui prend en charge les requêtes HTTP POST au format application/x-www-form-urlencoded
+	 * La méthode renvoie l'URI de la nouvelle instance en cas de succès
+	 *
+	 * @param login login de l'utilisateur
+	 * @param name nom de l'utilisateur
+	 * @param mail le mail de l'utilisateur
+	 * @return Response le corps de la réponse est vide, le code de retour HTTP est fixé à 201 si la création est faite
+	 *         L'en-tête contient un champs Location avec l'URI de la nouvelle ressource
+	 */
+	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	public Response createPizza(@FormParam("id") String id, @FormParam("nom") String nom, @FormParam("nbpizza") String nbpizza, @FormParam("prix") String prix) {
+	  // Si l'utilisateur existe déjà, renvoyer 409
+	  if ( Commande.containsKey(id) ) {
+	    return Response.status(Response.Status.CONFLICT).build();
+	        }
+	        else {
+	          Commande.put(nom, new Commande(id,nom,nbpizza,prix));
+
+	          // On renvoie 201 et l'instance de la ressource dans le Header HTTP 'Location'
+	          URI instanceURI = uriInfo.getAbsolutePathBuilder().path(id).build();
+	          return Response.created(instanceURI).build();
+	        }
+	}
+
+}

@@ -1,0 +1,69 @@
+package fr.ulille.iut.m4102;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class Serveur {
+	private ServerSocket serveurSocket = null;
+
+	public Serveur(int port) {
+		try {
+			// Création de la Socket Serveur qui permettra d'attendre les connexions
+			serveurSocket = new ServerSocket(port);
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+	}
+
+	public void miseEnService() {
+		Socket unClient = null;
+
+		// Boucle d'attente des clients
+		while (true) {
+			try {
+				// accept() est bloquant. Quand on en sort, on a un nouveau
+				// client avec une nouvelle instance de socket
+				unClient = serveurSocket.accept();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(1);
+			}
+
+			realiseService(unClient);
+		}
+	}
+
+	private void realiseService(Socket unClient) {
+		PrintWriter envoi = null;
+		BufferedReader reception = null;
+		TalonServeur ts = new TalonServeur();
+		try {
+			// Récupération d'un flux orienté texte pour écrire dans la socket
+			envoi = new PrintWriter(unClient.getOutputStream(), true);
+
+			// Récupération d'un flux orienté texte pou lire dans la socket
+			reception = new BufferedReader(new InputStreamReader(unClient.getInputStream()));
+			ts.setMess(reception.readLine());
+
+			String message = reception.readLine();
+			envoi.println(message + " World !");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+	}
+
+	public static void main(String[] args) {
+		// Le client est appelé avec le port à utiliser en paramètre
+		//Serveur serveur = new Serveur(Integer.parseInt(args[0]));
+		Serveur serveur = new Serveur(8080);
+		
+		serveur.miseEnService();
+	}
+}

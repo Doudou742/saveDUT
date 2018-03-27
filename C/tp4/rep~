@@ -1,0 +1,15 @@
+manipuler la mémoire
+
+1. f = 0x20 donne 
+   f = 20 donne 14 
+   g = -1 donne FFFF
+   f = g donne 0x0000FFFF pour f
+   f = f + g donne 0x0001FFFE
+
+2.
+on peut en déduire que la lecture se fait en little
+
+3. g = 0xABCD
+   [0x10000008]2 = 0xABCD
+   f = 0xABCD et g = f
+   

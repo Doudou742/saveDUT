@@ -1,0 +1,9 @@
+CC=gcc
+CFLAGS = -Wall -W 
+
+ctp: geoffrey_deschamps.o
+	$(CC) -o $(CLAGS) iutsh $^
+
+geoffrey_deschamps.o: geoffrey_deschamps.c
+
+

@@ -1,0 +1,15 @@
+il y a 10 candidats
+select sum(inscrits) from commune ; nb total d'inscrits
+select sum(votants) from commune ; nb total de votants
+q4) select min(a) from (select (sum(votants)*1.0/sum(inscrits)*1.0)*100 as a from commune group by codecom) as salut;
+
+q7) select sum(suffrages) from vote where codecand = ( select codecand from candidat where nom = 'HOLLANDE');
+
+q8) select nom, sum(suffrages) from vote inner join candidat using(codecand) group by nom order by sum(suffrages) desc;
+ 
+q9) select nom, sum(suffrages) from vote inner join candidat using(codecand)where codedep = '59' group by nom order by sum(suffrages) desc;
+
+q10)  select nom, sum(suffrages) from vote inner join candidat using(codecand)where codecom = (select codecom from commune where libcom like 'Villeneuve d%')  group by nom order by sum(suffrages) desc;
+
+exo 3
+q1) 

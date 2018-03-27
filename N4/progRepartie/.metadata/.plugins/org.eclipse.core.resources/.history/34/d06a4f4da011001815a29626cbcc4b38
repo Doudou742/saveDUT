@@ -1,0 +1,106 @@
+package fr.ulille.iut.m4102;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+public class TalonServeur implements Runnable{
+
+	private String message;
+	private Socket unClient;
+	private String nom_methode;
+	private float nbArgs;
+	private float arg1;
+	private float arg2;
+	private String message_envoi="";
+	boolean bonNbArg;
+	
+	public TalonServeur(Socket unClient) {
+		this.unClient = unClient;
+	}
+	
+	@Override
+	public void run() {
+		while(true) {
+			bonNbArg=true;
+			PrintWriter envoi = null;
+			BufferedReader reception = null;
+			String message="";
+			try {
+			    // Récupération d'un flux orienté texte pour écrire dans la socket
+			    envoi = new PrintWriter(unClient.getOutputStream(), true);
+			    
+			    // Récupération d'un flux orienté texte pou lire dans la socket
+			    reception = new BufferedReader(new InputStreamReader(unClient.getInputStream()));  
+			    message = reception.readLine();
+			} catch (IOException e) {
+			    e.printStackTrace();
+			    System.exit(1);
+			}
+			setMessage(message);
+			boolean trouve = false;
+			Calculatrice calc = new Calculatrice();
+			if(bonNbArg==false) {
+				envoi.println("405 nombre de paramètre incorrect");
+			}else {
+				switch(nom_methode) {
+				case "addition":
+					this.message_envoi = "42 " + calc.addition(this.arg1, this.arg2);
+					trouve=true;
+					break;
+					
+				case "soustraction":
+					this.message_envoi = "42 " + calc.soustraction(this.arg1, this.arg2);
+					trouve=true;
+					break;
+		
+				case "multiplication":
+					this.message_envoi = "42 " + calc.multiplication(this.arg1, this.arg2);
+					trouve=true;
+					break;
+					
+				case "division":
+					try {
+						this.message_envoi = "42 " + calc.division(this.arg1, this.arg2);
+						trouve=true;
+					} catch (DivisionParZero e) {
+						trouve=true;
+						this.message_envoi = "division par 0 impossible";
+					}
+					break;
+				}
+			}
+			if(trouve==true) {
+				envoi.println(message_envoi);
+			}else if(bonNbArg!=false){
+				envoi.println("404 méthode non existante");
+			}
+		}
+	}
+	
+	public void setMessage(String message) {
+		this.message = message;
+		String [] requete = message.split(" ");
+		this.nom_methode = requete[1];
+		this.nbArgs = Integer.parseInt(requete[2]);
+		if(nbArgs != (requete.length - 3)){
+			bonNbArg=false;
+		}else {
+			this.arg1 = Float.parseFloat(requete[3]);
+			if(nbArgs == 2) {
+				this.arg2 = Float.parseFloat((requete[4]));
+			}
+		}
+		
+	}
+	
+	public String getMessage() {
+		return this.message;
+	}
+	
+	public String getMessageEnvoi() {
+		return this.message_envoi;
+	}
+}

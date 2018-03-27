@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fr.univ_lille1.iut_info.martinet.mytabletmanager.MainActivity">
+
+    <TextView
+        android:id="@+id/tab"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="36dp"
+        android:text="@string/labelTab"
+        app:layout_constraintStart_toStartOf="@+id/dateLabel"
+        app:layout_constraintTop_toBottomOf="@+id/dateLabel" />
+
+    <Spinner
+        android:id="@+id/terminal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tab"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="@+id/date"
+        app:layout_constraintTop_toBottomOf="@+id/date" />
+
+    <TextView
+        android:id="@+id/champTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/student"
+        android:layout_marginTop="24dp"
+        android:layout_toEndOf="@+id/terminal"
+        android:layout_toRightOf="@+id/terminal"
+        android:text="@string/labelEmpty"
+        app:layout_constraintStart_toStartOf="@+id/stu"
+        app:layout_constraintTop_toBottomOf="@+id/stu" />
+
+    <Spinner
+        android:id="@+id/student"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/terminal"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@+id/terminal"
+        app:layout_constraintTop_toBottomOf="@+id/terminal" />
+
+    <TextView
+        android:id="@+id/stu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/student"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/labelStu"
+        app:layout_constraintStart_toStartOf="@+id/tab"
+        app:layout_constraintTop_toBottomOf="@+id/tab" />
+
+    <TextView
+        android:id="@+id/champStu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/student"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/student"
+        android:layout_toRightOf="@+id/student"
+        android:text="@string/labelEmpty"
+        app:layout_constraintStart_toStartOf="@+id/student"
+        app:layout_constraintTop_toBottomOf="@+id/student" />
+
+    <TextView
+        android:id="@+id/dateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:text="@string/labelDate"
+        app:layout_constraintBaseline_toBaselineOf="@+id/date"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:text="@string/labelEmpty"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonDate"
+        app:layout_constraintStart_toEndOf="@+id/dateLabel" />
+
+    <Button
+        android:id="@+id/buttonDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
+        android:onClick="doChangeDate"
+        android:text="@string/labelButtonChangeDate"
+        app:layout_constraintStart_toEndOf="@+id/date"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+    <Button
+        android:id="@+id/buttonSMS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:onClick="doSMS"
+        android:text="@string/labelButtonSMS"
+        app:layout_constraintBaseline_toBaselineOf="@+id/button4"
+        app:layout_constraintStart_toEndOf="@+id/buttonCall" />
+
+    <Button
+        android:id="@+id/buttonCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:onClick="doCall"
+        android:text="@string/labelButtonCall"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonSMS"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="32dp"
+        android:onClick="doPickContact"
+        android:text="@string/labelButtonPick"
+        app:layout_constraintStart_toEndOf="@+id/buttonSMS"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

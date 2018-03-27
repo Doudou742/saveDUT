@@ -1,0 +1,25 @@
+INSERT INTO avion values (100,'B747',350,'AIR FRANCE');
+INSERT INTO avion(ano, type, places) VALUES(102, 'A320', 200) ;
+INSERT INTO avion(ano, type, compagnie) VALUES(103, 'B747', 'TWA') ;
+INSERT INTO aeroport(rcode, libelle, ville) VALUES ('CDG', 'Roissy-Charles de Gaulle', 'Paris');
+INSERT INTO aeroport(rcode, ville, libelle) VALUES ('MAD', 'Madrid Barajas', 'Madrid');
+INSERT INTO aeroport(rcode, ville) VALUES ('SDN', 'Sydney');
+INSERT INTO pilote(nom, prenom, adresseP) VALUES('Szut', 'Piotr', 'Estonie');
+INSERT INTO pilote(adresseP, nom, prenom) VALUES('USA', 'Taylor', 'Frank');
+INSERT INTO ligne(lno, arrivee) VALUES(714, 'SDN') ;
+INSERT INTO ligne VALUES(314, 'CDG', 'MAD') ;
+UPDATE vol
+SET hdepart = '11:00', harr='17:25'
+WHERE hdepart IS NULL ;
+UPDATE vol
+SET ano = 103
+WHERE lno = 314 AND pno = 3;
+UPDATE aeroport
+SET rcode = 'SYD', libelle='Sydney-Kingsford Smith'
+WHERE rcode = 'SDN' ;
+UPDATE aeroport
+SET libelle=ville, ville=libelle
+WHERE rcode = 'MAD' ;
+DELETE FROM avion WHERE compagnie LIKE '%FRANCE' ;
+DELETE FROM pilote WHERE nom = 'Szut' ;
+DELETE FROM aeroport WHERE rcode = 'SYD' ;

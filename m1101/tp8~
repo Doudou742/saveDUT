@@ -1,0 +1,22 @@
+exercice 1)
+q1)
+q2) od -x /etc/debien_version
+    od -s /etc/debien_version
+    od -x -w2 /etc/debien_version
+
+q3)
+
+q4) offset -> bits représentés et ceux modifiable
+
+q5) 8 par défaut
+    sous forme numérique
+
+q6) 4
+
+q7) oui
+
+q8) quitter -> ctrl C
+
+    ascii -> tab
+    save -> f2 ou ctrl W
+    save and quitte -> ctrl X

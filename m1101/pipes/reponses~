@@ -1,0 +1,23 @@
+q1) cat pipes
+q2) cat pipes | cut -c 1
+q3) cat pipes | cut -c 2-
+q4) cat Pipes | cut -f1,3- -d' '
+q5) cat Pipes | grep -e commande
+q6)
+q7) cat Pipes | grep -v -
+q8) cat Pipes | grep -i tee
+
+exo4)
+q1) cat Pipes | cut -c 2 | sort
+q2) cat Pipes | sed -n '5p' | tr ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz
+cat Pipes | sed -n '5p' | tr [:upper:] [:lower:]
+q3) cat Pipes | grep pour | wc -l
+q4) cat Pipes | grep fichier | wc -l ;  cat Pipes | grep fichier > /dev/pts/1
+q5 )  cat Pipes | grep fichier | wc -l ;  cat Pipes | sort |  grep fichier > /dev/pts/2
+
+q6) cat Pipes | grep fichier | wc -l ;  cat Pipes | sort -k 5 |  grep commande  > /dev/pts/2
+
+q7) 
+
+exercice 2)
+q1) 

@@ -1,0 +1,41 @@
+package exo4;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class ServeurBegMT {
+
+	private ServerSocket serveur;
+	
+	
+	public ServeurBegMT(int port) {
+		try {
+		    serveur = new ServerSocket(port);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		    System.exit(1);
+		}
+	}
+	
+	public void go() {
+		Socket unClient = null;	
+		// Boucle d'attente des clients
+		while (true ) {
+		    try {
+			// accept() est bloquant. Quand on en sort, on a un nouveau
+			// client avec une nouvelle instance de socket
+			unClient = serveur.accept();
+			
+			new Thread(new ThreadBeg(unClient)).start();
+			
+		    } catch (IOException e) {
+			e.printStackTrace();
+			System.exit(1);
+		    }
+		    
+		    //realiseService(unClient);
+		}
+	}
+	
+}

@@ -1,0 +1,47 @@
+#!/bin/bash
+
+PATH=$(cd $(dirname $0); pwd):$PATH
+
+pathPasse=false
+repertoirePasse=false
+
+while ! estpareil $# 0
+do
+    if estpareil $1 --path
+    then
+	pathPasse=true
+    fi
+
+    if  estpareil $1 --repertoires
+    then 
+	repertoirePasse=true
+    fi
+    
+    shift 
+
+    if $pathPasse -a estpareil $1 --path
+    then
+	echo pas deux fois le meme
+	exit 1
+    fi
+    
+             
+done
+
+if estpareil $1 --path
+then
+    listerexecutable
+    
+elif estpareil $1 --repertoires
+then
+    lister-repertoire $2
+
+
+else
+    echo mauvaise commande
+    exit 1
+fi
+
+
+
+

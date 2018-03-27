@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MyFirstApp</string>
+    <string name="label_hello">Hello World!</string>
+    <string name="hint_first">Your first name</string>
+    <string name="hint_last">Your last name</string>
+    <string name="message">Welcome</string>
+    <string name="message_new_activity">Welcome</string>
+    <string name="labelNewActivity">Press this button to start new activity</string>
+</resources>

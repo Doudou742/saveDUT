@@ -1,0 +1,76 @@
+package projet;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+
+public class Client {
+	
+	/**
+	 * socketPi est la socket de contrôle interprète les commandes reçues du client (sur le canal de controle)
+	 * socketDTP est la socket de transfert des fichiers à fermer après chaque fin de transfert
+	 * PORTPI est le port utilisé pour la socket PI
+	 * PORTDTP est le port utilisé pour la socket DTP
+	 * userName correspond au login demandé lors de la connection 
+	 */
+	
+	private Socket socketPi; 
+	private Socket socketDTP;
+	
+	private final int PORTPI = 9876;
+	private final int PORTDTP = 9875;
+	
+	/**
+	 * Constructeur d'un client qui init les deux sockets (DTP et PI)
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
+	public Client() throws UnknownHostException, IOException {
+		this.socketPi = new Socket("172.18.48.164",PORTPI);
+		//this.socketDTP = new Socket("172.18.48.143",PORTDTP);
+	}
+	
+	public void traitement() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(socketPi.getInputStream()));
+		PrintWriter pw = new PrintWriter(socketPi.getOutputStream(),true);
+		String rep = "";
+		Scanner scan = new Scanner(System.in);
+		String tmp = "";
+		
+		while (true) {
+			rep = saisieDonnees(scan);
+			
+			if (rep.equals(null) || rep == " " || rep == "" || rep == "\n") {
+				System.out.println("dans le if avant le break");
+				break;
+			}
+			pw.println(rep);
+			while ((tmp = br.readLine()) != null || tmp == "\n") {
+				System.out.println(tmp);
+				System.out.println("dans le while de readLine");
+			}
+		}
+		this.socketPi.close();
+	}
+	
+	public String saisieDonnees(Scanner scan) {
+		String donnees = "";
+		donnees = scan.nextLine();
+		return donnees;
+	}
+	
+	public void envoieDonnees(String texte) {
+		
+	}
+	
+	public static void main(String[] args) throws UnknownHostException, IOException {
+		Client client = new Client();
+		client.traitement();
+	}
+	
+}

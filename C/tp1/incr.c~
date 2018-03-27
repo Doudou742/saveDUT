@@ -1,0 +1,9 @@
+#include <stdio.h>
+
+int incr(int t[8]) {
+
+  int cpt;
+  for (cpt = 8; i >= 0; cpt = cpt + 1){
+    printf("i = %d", i);
+  } 
+}

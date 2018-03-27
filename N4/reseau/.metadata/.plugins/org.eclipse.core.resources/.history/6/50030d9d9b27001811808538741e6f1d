@@ -1,0 +1,48 @@
+package ctp;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+public class MyThread implements Runnable {
+
+	Socket socket;
+	PrintWriter out;
+	BufferedReader reception;
+
+	public MyThread(Socket client) {
+		this.socket = client;
+	}
+	
+	@Override
+	public void run() {
+		int decalage;
+		String recu = "";
+		while (true) {
+			try {
+				reception = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				out = new PrintWriter(socket.getOutputStream(), true);
+				while (true) {
+					if (socket == null) {
+						socket.close();
+						break;
+					}
+					out.println("choisir le décalage: ");
+					try {
+					recu = reception.readLine();
+					decalage = Integer.valueOf(recu);
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
+					
+					String recu = reception.readLine();
+					ServeurCesar.transform(recu, shift);
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+
+}

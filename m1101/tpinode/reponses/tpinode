@@ -1,0 +1,8 @@
+ afaire inode: 125699989 periph: 24h/36d
+    |   |-- Algo2 inode:125700035  periph: 24h/36d
+    |   |-- Anglais inode: 125699736 periph: 24h/36d
+    |   `-- Math inode: 125700216 periph: 24h/36d	
+    |-- fait inode: 125700036 periph: 24h/36d
+    |   |-- Algo inode: 125700590 periph: 24h/36d
+    |   `-- Gestion inode: 125700595  periph: 24h/36d
+    `-- reponses inode: 125700041 periph: 24h/36d

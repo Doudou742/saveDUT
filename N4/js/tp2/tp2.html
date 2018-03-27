@@ -1,0 +1,416 @@
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="style.css">
+    <title>JavaScript survivor's guide: first training !</title>
+  </head>
+  <body>
+    <script src='jquery-3.3.1.js'></script>
+    <script src='N4P1.js'></script>
+    <script type='text/javascript'>
+// To show he solution to an exercise
+function showSolution(solutionId) {
+   document.getElementById('solution'+solutionId).style.display = 'inline-block';
+}
+// To evaluate "simple" JS code extract and output the result in a simple div
+function runProgram(pgmId) {
+   var UI=document.getElementById('program'+pgmId).value;
+   document.getElementById('result'+pgmId).innerHTML= eval(UI);
+}
+   </script>
+<!--   <script type="text/javascript" src="N4P1.js"> </script> -->
+    <h1>Premiers pas avec jQuery</h1>
+<p>
+Nous allons lors cette séance nous familiariser avec la bibliothèque <i>jQuery</i> qui fournit de nombreux raccourci facilitant la gestion de tâches courantes côté clients: la manipulation de l'arbre DOM (ie. de la structure et du contenu du document HTML en mémoire), la gestion des événements, la gestion des requêtes asynchrones vers le serveur (AJAX) et aussi des effets graphiques types animation ou <i>drag'n'drop</i>. Pour cette première séance, nous nous concentrerons sur le premiers aspect: la manipulation du DOM. Une première partie du TP portera sur la mise en oeuvre de ces notions sur de petits exemples, tandis que la seconde partie du TP permettra de poursuivre le travail initié sur le jeu d'échecs.
+</p>
+<h2>Un exemple minimal d'utilisation de <i>jQuery</i></h2>
+<p>
+Afin de pouvoir utiliser <i>jQuery</i>, il est nécessaire d'importer la bibliothèque dans le <i>header</i> de votre fichier HTML:
+</p>
+<div class="code">
+    <pre>
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"/&gt;
+    &lt;title&lt;Premier pas avec jQuery&lt;/title&gt;
+    &lt;script src='jquery-2.1.3.js'>&lt;/script&gt;
+    &lt;script&gt;
+$(document).ready(function() {
+  $('h1').css('font-size', '8pt');
+});
+    &lt;/script&gt;
+&lt;/head&gt; 
+  &lt;body&gt;
+    &lt;h1&gt;Ceci aurait du être un gros titre !&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+</div>
+<p>Copiez/collez cet exemple et sauvez le dans un fichier nommé <tt>jquery.html</tt>, puis ouvrez-le dans votre navigateur pour observer ce qu'il produit. A priori, vous constaterez que <i>jquery</i> a bien été chargé et que votre titre de niveau 1 est  ... un peu petit !</p>
+
+<h2>Principes fondamentaux de <i>jQuery</i></h2>
+<p>La bibliothèque <i>jQuery</i> repose sur l'observation des principales manipulations généralement effectuées en JavaScript côté client: la modification du contenu d'une page, la modification de style de certains éléments d'une page, la gestion des évènements associés à différents éléments d'une page, la gestion des échanges avec le serveur, et la réalisation d'effets graphiques. Dans l'ensemble de ces opérations, les étapes les plus courantes sont: 
+<ol>
+    <li>identifier un ou plusieurs éléments du document avec le sélecteur <tt>$(...)</tt></li>
+    <li>modifier la structure du document en ajoutant/enlevant des éléments avec la méthode <tt>.html(...)</tt></li>
+    <li>modifier le style d'un ou plusieurs éléments avec la méthode <tt>.css(...)</tt></li>
+    <li>ajouter ou enlever un gestionnaire d'évènement avec la méthode <tt>.on(...)</tt></li>
+</ol>
+<i>jQuery</i> facilite ces différentes opérations en fournissant une notation très compacte et <i>fluent</i>, c'est-à-dire avec une facilité de chaînage des appels de méthodes (pour le meilleur pour la concision et pour le pire pour la lisibilité). Dans la suite du TP, nous allons successivement nous exercer à ces différentes possibilités.
+</p>
+      
+<h2>Repérer un ou des éléments dans le DOM</h2>
+
+<p>La fonction permettant d'accéder facilement à un ou plusieurs éléments du DOM est la fonction <tt>$(...)</tt> qui prend en paramètre un nom de balise, ou un <tt>id</tt>, ou une <tt>class</tt> ou encore une expression plus complexe reposant sur les sélecteurs CSS. Vous trouverez ci-dessous un paragraphe avec un <tt>id='exo1'</tt>. Vous allez vous exercer sur cet élément pour vous faire la main avec la fonction <tt>$</tt>. 
+</p>
+<p>Afin de pouvoir se repérer dans un DOM, il est nécessaire de connaître quelques <b>sélecteurs CSS</b>:</p>
+<ul>
+    <li>si on met juste le nom d'une balise, on récupère un tableau avec toutes les balises nommées ainsi. Ex: <tt>$('a')</tt> retournera tous les liens du document</li>
+    <li>si on utilise le caractère <tt>#</tt>, cela indique un <tt>id</tt> et l'on obtient donc le seul élément de la page ayant cet ID (les ID doivent être uniques dans une page !). Ex: <tt>$('#titi')</tt> retournera l'élément dont l'ID vaut <tt>titi</tt>.</li>
+    <li>si l'on souhaite filtrer les éléments sur leur <tt>class</tt> (sachant que dans un attribut de ce type il est possible d'avoir plusieurs étiquettes), on utilise le caractère <tt>.</tt> comme préfixe à l'étiquette de <tt>class</tt> que l'on souhaite sélectionner. Ex: <tt>$('.toto')</tt> sélectionnera tous les éléments dont l'attribut <tt>class</tt> contiendra l'étiquette <tt>toto</tt>.</li>
+    <li><tt>$('X Y')</tt> retourne tous les éléments Y contenus dans X. Ex: <tt>$('ul a')</tt> ne retournera que les liens situés dans des listes non ordonnées.</li>
+    <li><tt>$('X > Y')</tt> retourne tous les éléments Y qui sont descendants directs de X. Ex: si vous avez des listes imbriquées les unes dans les autres, la requête <tt>$('ul > li')</tt> retournera tous les éléments <tt>&lt;li&gt;</tt> de premier niveau.</li>
+    <li><tt>$('X + Y')</tt> sélectionne l'ensemble des premiers <tt>Y</tt> suivant <tt>X</tt>. Ex: si l'on à plusieurs listes non ordonnées dans un document, <tt>$('ul + li')</tt> sélectionnera l'ensemble des premiers items de chaque liste.</li>
+    <li>la fonction <tt>not</tt> permet de sélectionner tous les éléments ne possédant pas une certaine propriété. Ex: <tt>$('ul li:not(.highlight)')</tt> sélectionnera tous les items &lt;li&gt; d'une liste non ordonnée ne possédant pas l'étiquette <tt>highlight</tt>.</li>
+    <li>la fonction <tt>X:nth-child(nb)</tt> sélectionne le <tt>nb</tt>ième fils de l'élément <tt>X</tt>. Ex: <tt>$('ul:nth-child(3)')</tt> retourne le troisième item de la liste.</li>
+    <li>finalement, <i>jQuery</i> propose aussi des sélecteurs spécifiques facilitant l'accès à certains éléments: <tt>$(":animated"); $(":button"); $(":radio"); $(":checkbox"); $(":checked"); $(":header");</tt>. Cela peut servir parfois ;)</li>
+</ul>
+<div id='exo1' style='border-style: double'>
+  <p>
+Voici un <a href=''>premier paragraphe</a> contenant un peu de texte suivi d'une liste:
+  </p>
+  <ul>
+    <li class='impair'>premier item (class='impair')</li>
+      <ul>
+          <li><a href=''>sous-item</a> A</li>
+          <li><a href=''>sous-item</a> B</li>
+      </ul>
+    <li class='pair'>deuxième item (class='pair')</li>
+      <ul>
+          <li><p>paragraphe du sous-item I</p></li>
+          <li><p>paragraphe sous-item II</p></li>
+      </ul>
+    <li class='impair'>troisième item (class='impair')</li>
+    <li class='pair'>quatrième item (class='pair')</li>
+  </ul>
+  <p>
+Et encore un peu de texte ensuite, dans un autre paragraphe juste pour le plaisir.
+  </p>
+</div>
+<br/>
+<p>A l'aide de la zone de saisie ci-dessous, réalisez les opérations suivantes:</p>
+<ul>
+    <li>sélectionnez la <tt>div</tt> d'<tt>id='exo1'</tt> et vérifiez que cela fonctionne en la cachant grâce à la méthode <tt>hide()</tt>,</li>
+    <li>faîtes ré-apparaître cet élément grâce à la fonction <tt>show()</tt>,</li>
+    <li>faîtes maintenant disparaître puis réapparaître tous les items de rang impair (sachant que leur attribut <tt>class</tt> contient l'étiquette <tt>impair</tt></li>
+    <li>faîtes disparaître/réapparaître les liens se trouvant dans une liste</li>
+    <li>faîtes disparaître/réapparaître les paragraphes descendants directs de <tt>#exo1</tt></li>
+    <li>faîtes disparaître/réapparaître les items qui suivent une liste non ordonnée</li>
+    <li>que fait <tt>$('#exo1 ul li:nth-child(3)').hide();</tt> ? Pourquoi ? (on dispose aussi de <tt>first-child</tt> et <tt>last-child</tt>, cela peut servir parfois)</li>
+</ul>
+<!-- Program 1 -->
+<div>
+<textarea id="program1" class="programInput" rows="4" cols="45">
+undefined;
+</textarea>
+<div id='solution1' class='solution'>
+<textarea class="programInput" readonly rows="4" cols="50">
+...
+</textarea>
+</div>
+</div>
+<div id='result1' class='programOutput'>Cliquez sur 'Run' pour obtenir la sortie standard ici ...</div><br/>
+<button onClick='runProgram(1)'>Run</button>
+<button onClick='showSolution(1)'>Surrender</button>
+<!-- Program 1 -->
+
+<h2>Modifier le contenu et/ou la structure de l'arbre DOM</h2>
+
+<p>Maintenant que nous disposons d'un certain nombre d'outils afin de sélectionner ce qui nous intéresse dans l'arbre DOM, nous pouvons passer à la deuxième étape souvent nécessaire: modifier l'arbre DOM. Ces modifications peuvent prendre trois formes: l'ajout d'éléments, le retrait temporaire et la suppression d'éléments. Pour chacune de ces opérations, <i>jQuery</i> fournit un certain nombre de primitives que nous allons étudier avec l'exemple ci-dessous (<tt>id</tt> de l'exercice: <tt>exo2</tt>). Les modifications pouvant être effectuées portent à la fois sur l'ajout/retrait de balises, qui modifient la structure de l'arbre, ou encore d'attributs, qui ne changent que des propriétés des noeuds de l'arbre.
+</p>
+
+<h3>Modification du contenu de l'arbre DOM</h3>
+    
+<p>Les principales méthodes permettant d'intevenir sur l'arbre sont les suivantes:</p>
+<ul>
+    <li><tt>.html()</tt> – récupère ou modifie du contenu HTML.</li>
+    <li><tt>.text()</tt> – récupère ou modifie du contenu texte (l'HTML est supprimé).</li>
+    <li><tt>.attr()</tt> – récupère ou modifie de l'attibut.</li>
+    <li><tt>.width()</tt> – récupère ou modifie la largeur en pixel (entier) du premier élément de la sélection.</li>
+    <li><tt>.height()</tt> – récupère ou modifie la hauteur en pixel (entier) du premier élément de la sélection.</li>
+    <li><tt>.val()</tt> – récupère ou modifie les valeurs d'un formulaire.</li>
+</ul>
+    
+<div id='exo2' style='border-style: double'>
+  <h3>Titre de niveau 3</h3>
+  <p>
+Voici un <a href=''>premier paragraphe</a> contenant un peu de texte suivi d'une liste:
+  </p>
+  <ul>
+    <li>premier <a href="">item</a></li>
+    <li>deuxième item</li>
+    <li>troisième item</li>
+    <li>quatrième item</li>
+  </ul>
+  <p>Votre age: <input type="text" name="age" value="..."/></p>
+  <p>
+Et encore un peu de texte ensuite, dans un autre paragraphe juste pour le plaisir.
+  </p>
+</div>
+
+<br/>
+<p>
+Afin de nous exercer un peu avec les primitives de manipulation de l'arbre, commençons par explorer les <i>getter</i>:</p>
+<ul>
+    <li>sélectionnez le premier item de la liste et affichez d'abord ce que retourne <tt>.html()</tt> et ensuite <tt>.text()</tt>. Observez-vous la différence ?</li>
+    <li>affichez le contenu de l'attribut <tt>href</tt> du premier lien HTTP. Modifiez la valeur afin qu'il pointe sur <tt>http://www.univ-lille1.fr</tt> (il suffit de passer en deuxième paramètre d'<tt>attr</tt> la nouvelle valeur).</li>
+    <li>on souhaite espacer un peu les lignes de la liste. Exploitez la méthode <tt>.height()</tt> afin d'avoir plus d'espace.</li>
+    <li>sachant que la zone de saisie <tt>input</tt> possède un attribut <tt>name</tt> et <tt>value</tt>, affichez dans un premier temps leur valeur à l'aide de <tt>attr</tt>, avant de modifier le texte affiché dans la zone de saisie par ce que vous voulez.</li>
+    <li>refaîtes les mêmes manipulations mais en vous reposant cette fois sur le sélecteur CSS pour les attributs (rappel: <tt>a['href']</tt> par exemple).</li>
+
+</ul>
+<br/>
+<!-- Program 2 -->
+<div>
+<textarea id="program2" class="programInput" rows="4" cols="45">
+undefined;
+</textarea>
+<div id='solution2' class='solution'>
+<textarea class="programInput" readonly rows="4" cols="50">
+...
+</textarea>
+</div>
+</div>
+<div id='result2' class='programOutput'>Cliquez sur 'Run' pour obtenir la sortie standard ici ...</div><br/>
+<button onClick='runProgram(2)'>Run</button>
+<button onClick='showSolution(2)'>Surrender</button>
+<!-- Program 2 -->
+
+<h3>Modification de la structure de l'arbre: déplacer des éléments</h3>
+    
+<p>Passons maintenant à des modifications un peu plus lourdes en modifiant la structure de l'arbre DOM. Pour cela plusieurs approches sont possibles selon la pérennité des modifications souhaitées, particulièrement pour le retrait de noeuds. En effet, selon le cas, on utilisera une première approche si l'on souhaite retirer définitivement un noeud de l'arbre, ou une autre si c'est un retrait temporaire (parfois utile dans les applications type <i><a href='http://en.wikipedia.org/wiki/Single-page_application'>single page application</a></i>).</p>
+
+<p>Examinons d'abord les possibilités offertes en terme de déplacement de noeuds dans l'arbre DOM. Il est possible de procéder de deux manières différentes: en sélectionnant l'élément à déplacer et en indiquant le noeud de destination, ou à l'inverse en localisant l'élément devant être modifié et en passant passant en paramètre le noeud à déplacer. Les principales méthodes pour effectuer ce type d'opération sont <tt>.insertAfter(), .insertBefore(), .appendTo(), .prependTo()</tt>.</p>
+
+<p>
+Illustrons cela en déplacement les premiers et derniers éléments de la liste de <tt>#exo2</tt>. Dans la console JavaScript, tapez dans un premier temps la commande suivante:
+<ul>
+    <li><tt>$("#exo2 li:first").appendTo("#exo2 ul");</tt> qui sélectionne dans un premier temps l'élément devant être déplacé (ie. le premier item de la liste) et indique ensuite à quel noeud il doit être ajouté (ici, concaténé en fin de liste).</li>
+    <!-- $( "#exo2 li:first").appendTo( "#exo2 ul" ); -->
+    <li>comment revenir dans la sitation précédente en utilisant <tt>prependTo</tt> et en ne changeant que 3 caractères dans les paramètres de la commande précédente ?</li>
+    <!-- $( "#exo2 li:last").prependTo( "#exo2 ul" ); -->
+</ul>
+Une autre manière d'obtenir le même résultat consiste à d'abord récupérer l'élément devant être modifié (ici la liste) et à lui passer en paramètre l'élément que l'on souhaite déplacer.
+<ul>
+    <li><tt>$("#exo2 ul").append( $("#exo2 ul li:first") );</tt> qui sélectionne d'abord la liste et demande l'ajout (en queue) de l'élément sélectionné en paramètre (le premier item de la liste)</li>
+    <li>comment revenir à la situation précédente (à l'aide de <tt>prepend</tt>) ?</li>
+</ul>
+</p>
+
+<h3>Modification de la structure de l'arbre: ajouter des éléments</h3>
+
+<p>Les auteurs de <i>jQuery</i> appréciant l'usage de la surcharge de méthode, il est possible de créer de nouveaux noeuds très facilement et très directement à l'aide de la fonction <tt>$(...)</tt>. Ainsi, si vous tapez la commande <tt>$('&lt;p&gt;Hello World !&lt;/p&gt;');</tt> dans la console, vous constaterez que vous récupérez une liste contenant votre nouveau noeud. Une autre notation est possible, en passant par un objet JS:
+<div class="code">
+    <pre>
+$( "&lt;a/&gt;", {
+    html   : "Texte &lt;strong&gt;visible par l'utilisateur&lt;/strong&gt; de ce lien",
+    'class': "cool",
+    href   : "www.univ-lille1.fr"
+});
+    </pre>
+</div>
+Cet exemple correspond à la création d'un nouveau lien avec un attribut <tt>class</tt> valant <tt>cool</tt> et pointant sur la meilleure Université ;) <b>ATTENTION:</b> vous remarquerez que l'attribut spécifiant la classe de l'élément est mis entre quotes, c'est fait exprès car <tt>class</tt> est un mot réservé du langage JS. Encore un petit détail croustillant de JS à ne pas oublier ...</p>
+<p>
+Une fois le nouveau noeud créé, il est ensuite possible de l'injecter à l'aide des différentes méthodes présentées dans la section précédente. Voici un exemple:
+</p>
+
+<div class="code">
+    <pre>
+// Création d'un nouvel élément
+var nouvelElement = $("&lt;p&gt;Chouette&lt;/p&gt;");
+ 
+// ajoute le nouvel élémént à l'élément d'ID 'content'
+nouvelElement.appendTo("#content"); 
+ 
+// Déplace l'élément de 'content' à la fin de la liste
+nouvelElement.insertAfter("ul:last"); 
+
+// Duplique le nouvel élément et l'ajoute en fin de liste
+$( "ul" ).last().after(nouvelElement.clone()); 
+    </pre>
+</div>
+
+<p>Afin de s'entraîner un peu, vous allez modifier la partie suivante de l'arbre, en peuplant la table d'ID <tt>table1</tt> afin de l'initialiser ainsi:</p>
+<div class="code">
+    <pre>
+Voici la table qu'il vous faudra générer dynamiquement
+
+0	1	2	3	4	5	6	7
+8	9	10	11	12	13	14	15
+16	17	18	19	20	21	22	23
+24	25	26	27	28	29	30	31
+32	33	34	35	36	37	38	39
+40	41	42	43	44	45	46	47
+48	49	50	51	52	53	54	55
+56	57	58	59	60	61	62	63
+    </pre>
+</div>
+
+<div id='exo3' style='border-style: double'>
+  <h3>Création dynamique d'une table HTML</h3>
+  <p>Voici la table qu'il vous faudra générer dynamiquement</p>
+  <table id='table1'>
+  </table>
+  <p>Il n'y a plus qu'à ...</p>
+</div>
+
+<!-- Program 3 -->
+<div>
+<textarea id="program3" class="programInput" rows="4" cols="45">
+var table = $('#table1');
+// génération des cellules de la table à l'image de l'exemple
+undefined
+</textarea>
+<div id='solution3' class='solution'>
+<textarea class="programInput" readonly rows="4" cols="50">
+var table = $('#table1');
+...
+</textarea>
+</div>
+</div>
+<div id='result3' class='programOutput'>Cliquez sur 'Run' pour obtenir la sortie standard ici ...</div><br/>
+<button onClick='runProgram(3)'>Run</button>
+<button onClick='showSolution(3)'>Surrender</button>
+<!-- Program 3 -->
+
+<p>Question subsidiaire: comment écrire cela en utilisant un seul appel à <tt>.append</tt> ? Quel pourrait-être l'interêt ?</p>
+<!-- cela améliorer les performances car l'on travaille sur des chaînes avant d'invoquer
+      une seule fois la (coûteuse) méthode 'append' -->
+
+<h3>Modification de la structure de l'arbre: retirer des éléments</h3>   
+
+<p>La dernière étape consiste à modifier l'arbre DOM en lui retirant des éléments. Il est possible de procéder de deux manières différentes. La première consiste à retirer définitivement un noeud de l'arbre en utilisant la méthode <tt>remove</tt> tandis que la seconde est utile lorsque l'on souhaite enlever temporairement un noeud de l'arbre, on utilise alors <tt>detach</tt>. A la différence de la première approche <tt>detach</tt> conserve les données et gestionnaire d'évènement associé.</p>
+<p>Plutôt qu'un long discours, je vous invite à tester cela directement sur <a href='http://www.jquerybyexample.net/2012/05/empty-vs-remove-vs-detach-jquery.html'>cette intéressante page de démonstration</a>.</p>
+
+<h2>Affichons votre emploi du temps</h2>
+<p> Vous disposez en plus de ce fichier html d'un source javascript de nom 'N4P1.js'. ce fichier est automatiquement chargé par la ligne suivante de ce document:</p>
+<p><span class='code'>&lt;script src='N4P1.js'&gt;&lt;/script&gt;&lt;/p&gt;</span></p>
+<p>Ce fichier contient un code javascript qui sera exécuté au chargement de la page. Dans la version initiale qui vous est fourni, ce code ne fait qu'initialiser une variable javascript de nom <span class='code'>plainData</span>
+avec les données de votre emploi du temps (du moins celles qui étaient disponibles lors de la rédaction de ce sujet). La description de cette variable figure en annexe.</p>
+
+<div id='exo4'>
+  <h3>Votre emploi du temps</h3>
+  <table id='table2'>
+    <tr>
+       <th>Date</th>
+       <th>Heure</th>
+       <th>Salle</th>
+       <th>Prof</th>
+       <th>Enseignement</th>
+    </tr>
+  </table>
+</div>
+<p>Complétez le fichier <span class='code'>N4P1.js</span> pour afficher les créneaux dans la table d'id 'table2'. Le résultat obtenu devrait ressembler à:</p>
+<img src='Table.png' />
+<p>Note, il vaut faudra trier le tableau de données par date et heure croissante (par ordre numérique).</p>
+
+<h2>Version graphique.</h2>
+Si il vous reste du temps vous pouvez vous attaquer à la version graphique (afficher uniquement la semaine 41 par exemple):
+<ol>
+  <li>Récuperer la référence à l'objet canvas ci-dessous(#graph) (1000 x 600)</li>
+  <li>Utiliser les primitives fillRect, moveTo, lineTo, fillStyle, strokeStyle, fillText, clearRect et les propriétés textAlign, textBaseline</li>.
+</ol>
+<canvas width="1000" height="600" id="graph"></canvas>
+les valeurs utilisées sont:
+<ul>
+<li>Pour le texte: "16px times", "12px courier" et "16px times" "11px courier".</li>
+<li>Les couleurs: "blue", "whitesmoke" et les attributs couleurFond de chaque séance</li>
+</ul>
+
+Le résultat obtenu devrait être:
+<img src="exemple.png"></img>
+<div id='exo5'>
+  <canvas height='600' width='1000' id='_graph' />  
+</div>
+
+
+<h2>Annexe: Description des données de l'emploi du temps.</h2>
+<p>La variable <span class='code'>plainData</span> est un tableau d'objets. Chaque objet décrit une séance, à la fois comme un tableau et comme un objet ayant les attributs suivant:
+<ul>
+  <li>dateSeance: La date de la séance au format ISO (AAAA-MM-JJ)</li>
+  <li>heureSeance: L'heure de début de la séance (format HHMM).</li>
+  <li>dureeSeance: La durée de la séance en heures, minutes (format HHMM).</li>
+  <li>Enseignement: Le nom du module de la séance.</li>
+  <li>Salle: Le nom de la (ou des) salle où à lieu la séance.</li>
+  <li>Groupe: Le groupe concerné (ici N4P1)</li>
+  <li>Prof: Le nom de l'enseignant (plusieurs enseignants éventuellement séparés par ,).</li>
+  <li>diffusable: Boolean qui indique si la séance être publiée ou non.</li>
+  <li>datemodif: La date de dernière modification dela séance (AAAA-MM-JJ HH:MM:SS)</li>
+  <li>codeSeance: L'identifiant de la séance.</li>
+  <li>couleurFond: Couleur d'affichage (fond).</li>
+  <li>couleurPolice: Couleur d'affichage (texte).</li>
+</ul>
+  <pre>
+     [    
+      {
+      "dateSeance": "2015-08-31",
+      "0": "2015-08-31",
+      "heureSeance": "1000",
+      "1": "1000",
+      "dureeSeance": "200",
+      "2": "200",
+      "Enseignement": "ATELIER ENTREPRISE",
+      "3": "ATELIER ENTREPRISE",
+      "Salle": "TP",
+      "4": "TP",
+      "Groupe": "N4P1",
+      "5": "N4P1",
+      "Prof": "DELILLE",
+      "6": "DELILLE",
+      "diffusable": "1",
+      "7": "1",
+      "dateModif": "2015-07-08 09:12:33",
+      "8": "2015-07-08 09:12:33",
+      "codeSeance": "16183565",
+      "9": "16183565",
+      "groupeId": "I-N4P1",
+      "10": "I-N4P1",
+      "couleurFond": "4259584",
+      "11": "4259584",
+      "couleurPolice": "0",
+      "12": "0"
+      },    {        
+      "dateSeance": "2015-08-31",
+      "0": "2015-08-31",
+      "heureSeance": "1330",
+      "1": "1330",
+      "dureeSeance": "400",
+      "2": "400",
+      "Enseignement": "ATELIER ENTREPRISE",
+      "3": "ATELIER ENTREPRISE",
+      "Salle": "TP",
+      "4": "TP",
+      "Groupe": "N4P1",
+      "5": "N4P1",
+      "Prof": "DELILLE",
+      "6": "DELILLE",
+      "diffusable": "1",
+      "7": "1",
+      "dateModif": "2015-07-08 09:13:00",
+      "8": "2015-07-08 09:13:00",
+      "codeSeance": "16183566",
+      "9": "16183566",
+      "groupeId": "I-N4P1",
+      "10": "I-N4P1",
+      "couleurFond": "4259584",
+      "11": "4259584",
+      "couleurPolice": "0",
+      "12": "0"    
+      },    {        
+      ...
+    ]
+  </pre>
+</p>
+    </body>
+</html>
+

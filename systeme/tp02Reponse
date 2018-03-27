@@ -1,0 +1,19 @@
+who : affiche qui est logged sur la machine
+who -h : affiche qui est logged et le nom des colonnes
+who -y : n'existe pas
+who --help : affiche la page man de la commande who
+
+which who : who est une option de which, ce qui permet d'afficher le chemin de l'argument
+
+
+q12 : /pattern
+      n
+     ? : This option displays a summary of the commands accepted by less
+
+
+-H permet d ouvrir en html dans un navigateur
+
+man -t bash | ps2pdf - bash.pdf
+
+
+cal -3

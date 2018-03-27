@@ -1,0 +1,71 @@
+package exo4;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class SrvBeg {
+	
+	private ServerSocket serverSocket;
+	
+	public SrvBeg(int port) throws IOException {
+		this.serverSocket = new ServerSocket(port);
+	}
+	
+	public void traitement(int port) throws IOException {
+		while (true) {
+			System.out.println("Attente d'un client");
+			Socket socket = serverSocket.accept();
+			BufferedReader reception = null;
+			String[] mot = null;
+
+			PrintWriter envoi = new PrintWriter(socket.getOutputStream(), true);
+			reception = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+			String recu = reception.readLine();
+
+			String[] tabRecu = recu.split(":");
+			System.out.println(socket.getInetAddress() + "/" + this.serverSocket.getLocalPort());
+			try {
+				mot = tabRecu[1].split(" ");
+			} catch (Exception e) {
+				System.out.println("1ErreurNombre");
+			}
+			try {
+				String[] stock = tabRecu[0].split(" ");
+				int nb = Integer.parseInt(stock[0]);
+				if (nb > 0) {
+					System.out.println(nb);
+					for (int i = 0; i < mot.length; i++) {
+						for (int j = 0; j < nb; j++) {
+							System.out.print(mot[i] + " ");
+							envoi.print(mot[i] + " ");
+						}
+					}
+					envoi.println();
+				} else {
+					System.out.println(nb);
+					System.out.println("0");
+				}
+			} catch (Exception e) {
+				System.out.println("print dans premier catch");
+				if (e instanceof IOException) {
+					System.out.println("close dans premier catch");
+					serverSocket.close();
+					break;
+				}
+				envoi.println("erreur format");
+				System.out.println("1ErreurNombre");
+			} 
+		}
+	}
+	
+	public static void main(String [] args) throws IOException {
+		final int PORT = 9876;
+		SrvBeg server = new SrvBeg(PORT);
+		server.traitement(PORT);
+	}
+}

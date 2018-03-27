@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">MyTabletManager</string>
+    <string name="labelTab">Tablet:</string>
+    <string name="labelStu">Student:</string>
+    <string name="label">Tablet management</string>
+    <string name="labelDate">Date: </string>
+    <string name="labelButtonChangeDate">Change date...</string>
+    <string name="labelButtonSMS">Send SMS</string>
+    <string name="labelButtonCall">Call</string>
+    <string name="labelButtonPick">Pick contact...</string>
+    <string name="toastContactSelected">You selected a contact!</string>
+    <string name="toastContactCanceled">You canceled the contact selection!</string>
+    <string name="labelEmpty">(empty)</string>
+
+    <string-array name="tablets">
+        <item>tablet 01</item>
+        <item>tablet 02</item>
+        <item>tablet 03</item>
+        <item>tablet 04</item>
+        <item>tablet 05</item>
+        <item>tablet 06</item>
+    </string-array>
+    <string-array name="students">
+        <item>AVAILABLE</item>
+        <item>alain</item>
+        <item>bruno</item>
+        <item>charles</item>
+        <item>denis</item>
+        <item>eric</item>
+        <item>flavien</item>
+    </string-array>
+
+</resources>

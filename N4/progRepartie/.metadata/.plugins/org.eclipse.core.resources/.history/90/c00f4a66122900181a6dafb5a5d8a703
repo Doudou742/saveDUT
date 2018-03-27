@@ -1,0 +1,99 @@
+package fr.ulille.iut;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Scanner;
+
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.Context;
+
+@Path("commande")
+public class CommandeRessource {
+
+	private static Map<String, CommandePizza> commande = new HashMap<>();
+
+	@Context
+	public UriInfo uriInfo;
+
+	public CommandeRessource() {
+
+	}
+	
+	@GET
+	public List<CommandePizza> getUsers() {
+	  return new ArrayList<CommandePizza>(commande.values());
+	}
+	
+	@GET
+	@Path("{nom}")
+	public CommandePizza getCommande(@PathParam("nom") String nom){
+		if (  ! commande.containsKey(nom) ) {
+			throw new NotFoundException();
+		}
+		else {
+			return commande.get(nom);
+		}
+	}
+	
+	@POST
+	public Response postIt(CommandePizza c) {
+		// Si l'utilisateur existe déjà, renvoyer 409
+        if ( commande.containsKey(c.getNom())){
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+        else {
+            commande.put(c.getNom(), c);
+
+            // On renvoie 201 et l'instance de la ressource dans le Header HTTP 'Location'
+            URI instanceURI = uriInfo.getAbsolutePathBuilder().path(c.getNom()).build();
+            return Response.created(instanceURI).build();
+        }
+	}
+	
+	@POST
+	@Path("{nom}")
+	public Response postItPizza(@PathParam("nom") String nom, CommandePizza c) {
+		// Si l'utilisateur existe déjà, renvoyer 409
+		 if (!commande.containsKey(nom)){
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+        else {
+        	if(PizzaRessource.getPizzaByNameFromList(c.getPizza())!=null) {
+        			commande.get(nom).setPizza(c.getPizza());
+        	}
+        	
+            // On renvoie 201 et l'instance de la ressource dans le Header HTTP 'Location'
+            URI instanceURI = uriInfo.getAbsolutePathBuilder().path(commande.get(nom).getNom()).build();
+
+            return Response.created(instanceURI).build();
+        }
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+class minToMaj extends Program{
+
+    char mintomaj(char c){
+	if ( c >= 'a' && c <= 'z' ){
+	    return c - 40;
+	}
+	else
+	    return c;
+	
+    }
+
+}

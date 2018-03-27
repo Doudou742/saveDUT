@@ -1,0 +1,22 @@
+class exercice5 extends Program{
+
+    void testOccurrence() {
+	String phrase = "Hello World !";
+	assertEquals(2, occurrenceFor(phrase, ’o’));
+	assertEquals(3, occurrenceFor(phrase, ’l’));
+	assertEquals(0, occurrenceFor(phrase, ’y’));
+    }
+
+    public int occurenceFor(String phrase, char c){
+	
+	int cpt = 0;
+	for ( int i = 0; i < phrase.length(); i+ ){
+	    if ( charAt(phrase, i).equals(c) ){
+		cpt += 1;
+	    }
+	}
+	return cpt;
+	
+    }
+    
+}

@@ -1,0 +1,36 @@
+exo 1)
+q1) ./montrer-arguments "echo bonjour le monde"
+q2) ./montrer-arguments echo bonjour le monde
+q3) ./montrer-arguments echo \\t "plus loin"
+q4) ./montrer-arguments echo \*
+q5) ./montrer-arguments echo \\t \*
+q6) ./montrer-arguments echo sed 's/\./\t/g'
+q7)  ./montrer-arguments echo 2 \* 3
+q8) ./montrer-arguments expr 2 \* 3
+q9) ./montrer-arguments 'B=1'
+q10) ./montrer-arguments 'A=${B} + 3'
+q11 ) ./montrer-arguments 'A=${B}' \* 3
+q12) ./montrer-arguments echo '${A}'
+q13)  ./montrer-arguments expr '${A}
+q14) ./montrer-arguments expr '${B}' \* 5
+
+
+exo2)
+q1) echo /home/infoetu/* | tr ' ' \\n
+q2) echo /home/infoetu/b*b
+q3) echo /home/infoetu/???????? | tr ' ' \\n
+q4) echo /home/infoetu/b??????b | tr ' ' \\n
+q5) echo /home/infoetu/*b* | tr ' ' \\n
+q6) echo /home/infoetu/*b*b* | tr ' ' \\n
+q7) echo /home/infoetu/*[0-9]* | tr ' ' \\n
+q8) echo /home/infoetu/*t*[0-9] | tr ' ' \\n
+
+exo3)
+q1) date +%Y-%m-%D-%H-%M-%S
+    - ln -s montrer-arguments montrer-arguments.$(date +%F-%H-%M-%S)
+    -
+
+exo4)
+q1) echo $PATH | tr :  \\n
+q6)PATH=/home/public/m1101:$PATH
+q7)

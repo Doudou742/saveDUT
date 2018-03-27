@@ -1,0 +1,23 @@
+package ctp;
+
+public class ServeurCesar {
+
+	public static String transform(String str, int shift) {
+		String result = "";
+		for (char c : str.toCharArray())
+			result += transform(c, shift);
+		return result;
+	}
+
+	private static char transform(char c, int shift) {
+		int startVal;
+		if (('a' <= c) && (c <= 'z'))
+			startVal = 'a';
+		else if (('A' <= c) && (c <= 'Z'))
+			startVal = 'A';
+		else
+			return c;
+		return (char) ((c - startVal + (shift < 0 ? shift + 26 : shift)) % 26 + startVal);
+	}
+	
+}

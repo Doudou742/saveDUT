@@ -1,0 +1,28 @@
+package exo4;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class SrvBeg {
+
+	private ServerSocket server;
+	
+	public SrvBeg(int port) throws IOException {
+		this.server = new ServerSocket(port);
+	}
+	
+	
+	public void traitement() throws IOException {
+		Socket socket = server.accept();
+		PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
+		String informationSurClient = "";
+		informationSurClient += socket.getInetAddress();
+	}
+	
+	public static void main(String[] args) throws IOException {
+		SrvBeg serveurBeg = new SrvBeg(9876);
+		serveurBeg.traitement();
+	}
+}

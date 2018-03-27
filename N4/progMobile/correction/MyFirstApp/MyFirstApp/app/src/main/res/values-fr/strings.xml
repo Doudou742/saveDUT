@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyFirstApp</string>
+    <string name="label_hello">Bonjour le monde !</string>
+    <string name="hint_first">Votre prénom</string>
+    <string name="hint_last">Votre nom</string>
+    <string name="message">Bienvenue</string>
+    <string name="labelNewActivity">Lancer une nouvelle activité</string>
+    <string name="message_new_activity">Bienvenue</string>
+</resources>

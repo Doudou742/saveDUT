@@ -1,0 +1,40 @@
+Create table abonne(
+       id_abonne Integer primary key not null,
+       nom_abonne varchar(80) not null,
+       id_parrain Integer references abonne(id_abonne)
+       on update cascade,
+       on delete restrict
+)
+
+Create table creneau(
+       dateCreneau date not null,
+       heureCreneau heure not null,
+       Constraint pk_creneau primary key (dateCreneau,heureCreneau),
+       on update cascade,
+       on delete restrict
+)
+
+Create table terrain(
+       id_terrain Integer primary key not null,
+       type_terrain varchar(15),
+       nom_terrain varchar(20),
+       on update cascade,
+       on delete restrict
+)
+
+Create table reservation(
+       id_terrain Integer not null,
+       id_abonne Integer not null,
+       id_abonne Integer not null,
+       dateCreneau date not null,
+       heureCreneau heure not null,
+       actif Integer,
+       primary key (id_terrain,id_abonne,id_abonne,dateCreneau,heureCreneau),
+       Constraint fk_id_terrain foreign key (terrain) references (id_terrain),
+       Constraint fk_id_respondable foreign key (abonne) references (id_abonne),
+       Constraint fk_id_participant foreign key (abonne) references (id_abonne),
+       Constraint fk_dateCreneau foreign key (creneau) references (dateCreneau),
+       Constraint fk_heureCreneau foreign key (creneau) references (heureCreneau),
+       on update cascade,
+       on delete restrict
+)

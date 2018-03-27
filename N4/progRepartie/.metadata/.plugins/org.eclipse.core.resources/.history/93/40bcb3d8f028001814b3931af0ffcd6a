@@ -1,0 +1,80 @@
+package fr.ulille.iut;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+
+
+
+/**
+ * Root resource (exposed at "myresource" path)
+ */
+@Path("pizzas")
+public class PizzaRessource {
+	
+	// Pour l'instant, on se contentera d'une variable statique pour conserver l'état
+    private static Map<String, Pizza> pizzas = new HashMap<>();
+
+    // L'annotation @Context permet de récupérer des informations sur le contexte d'exécution de la ressource.
+    // Ici, on récupère les informations concernant l'URI de la requête HTTP, ce qui nous permettra de manipuler
+    // les URI de manière générique.
+    @Context
+    public UriInfo uriInfo;
+	
+	public PizzaRessource() {
+	}
+	
+    /**
+     * Method handling HTTP GET requests. The returned object will be sent
+     * to the client as "text/plain" media type.
+     *
+     * @return String that will be returned as a text/plain response.
+     */
+	
+    @GET
+    public List<Pizza> getIt() {
+        return new ArrayList<Pizza>(pizzas.values());
+    }
+    
+    @POST 
+    public Response post(Pizza pizza) {
+ 
+ 
+    	  if ( pizzas.containsKey(pizza.getNom()) ) {
+              return Response.status(Response.Status.CONFLICT).build();
+          }
+          else {
+              pizzas.put(pizza.getNom(), pizza);
+
+              // On renvoie 201 et l'instance de la ressource dans le Header HTTP 'Location'
+              URI instanceURI = uriInfo.getAbsolutePathBuilder().path(pizza.getNom()).build();
+              return Response.created(instanceURI).build();
+          }
+    }
+    
+    @DELETE
+    @Path("{nom}")
+    public Response deleteUser(@PathParam("nom") String nom) {
+      // Si l'utilisateur est inconnu, on renvoie 404
+      if (  ! pizzas.containsKey(nom) ) {
+              throw new NotFoundException();
+            }
+            else {
+              pizzas.remove(nom);
+              return Response.status(Response.Status.NO_CONTENT).build();
+            }
+    }
+
+}

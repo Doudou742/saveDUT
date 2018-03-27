@@ -1,0 +1,22 @@
+package exo4;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class ServeurChargen {
+
+	private Socket socket;
+	
+	public ServeurChargen() throws UnknownHostException, IOException {
+		this.socket = new Socket(InetAddress.getLocalHost(), 9876);
+	}
+	
+	public void afficheAscii() throws UnknownHostException, IOException {
+		while (true) {
+			this.socket.getin
+		}
+	}
+	
+}

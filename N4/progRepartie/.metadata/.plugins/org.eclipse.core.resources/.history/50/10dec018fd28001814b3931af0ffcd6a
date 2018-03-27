@@ -1,0 +1,31 @@
+package fr.ulille.iut;
+
+import java.util.Map;
+
+public class CommandePizza {
+
+	private String client;
+	private int prix;
+	private Map<String,Pizza> pizzas;
+	public String getClient() {
+		return client;
+	}
+	public void setClient(String client) {
+		this.client = client;
+	}
+	public int getPrix() {
+		return prix;
+	}
+	public void setPrix(int prix) {
+		this.prix = prix;
+	}
+	public Map<String, Pizza> getPizzas() {
+		return pizzas;
+	}
+	public void setPizzas(Map<String, Pizza> pizzas) {
+		this.pizzas = pizzas;
+	}
+	
+
+	
+}

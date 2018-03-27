@@ -1,0 +1,14 @@
+#Constantes
+CC = gcc
+CFLAGS = -Werror -W -Wall
+
+#Regle 1 $/@ pour prendre tp1 et $/^ pour prendre tout a droite des deux points
+shell : test.o ligne_commande.o
+	$(CC) -o $@ $^
+
+clean:
+	rm -f *.o
+
+#Regle 2
+%.o : %.c
+	$(CC) $(CFLAGS) -c -o $@ $<

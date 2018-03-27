@@ -1,0 +1,5 @@
+#!/bin/bash
+for i in $(machines $1)
+do
+	est-accessible $i
+done

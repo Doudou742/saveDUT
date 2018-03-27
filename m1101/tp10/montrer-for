@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "\$# = $#"
+
+for indice in $*
+do
+	indice=1
+	echo \$"$indice" =  '       ' $"$indice" 
+	indice	
+	shift
+
+done

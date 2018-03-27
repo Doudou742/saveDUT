@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MaListe</string>
+
+    <string-array name="items">
+        <item>Préparer CTP</item>
+        <item>Finir projet</item>
+        <item>Tél Maman</item>
+        <item>MàJ CV</item>
+        <item>Contact stage</item>
+        <item>Justif. absence</item>
+        <item>Régler facture mobile</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,51 @@
+CREATE TEMP TABLE noms
+( nom TEXT );
+
+CREATE TEMP TABLE prenoms
+( prenom TEXT );
+
+CREATE TEMP TABLE adresses
+( adresse TEXT);
+
+TRUNCATE noms, prenoms, adresses, compagnies;
+
+INSERT INTO noms VALUES ( 'Haddock' );
+INSERT INTO noms VALUES ( 'Tournesol' );
+INSERT INTO noms VALUES ( 'Bergamotte' );
+INSERT INTO noms VALUES ( 'Lampion' );
+
+INSERT INTO prenoms VALUES ( 'Tryphon');
+INSERT INTO prenoms VALUES ( 'Archibald' );
+INSERT INTO prenoms VALUES ( 'Hyppolyte' );
+INSERT INTO prenoms VALUES ( 'Séraphin' );
+
+INSERT INTO adresses VALUES ( 'Moulinart' );
+INSERT INTO adresses VALUES ( 'Sbrodj' );
+INSERT INTO adresses VALUES ( 'Bruxelles' );
+INSERT INTO adresses VALUES ( 'Klow' );
+
+select * from noms, prenoms, adresses;
+
+insert into pilote(nom, prenom, adressep) select * from noms, prenoms,adresses ;
+
+create table compagnies (compagnie text);
+
+insert into compagnies select distinct compagnie from avion where compagnie is not null;
+
+create table modeles (type char(5), places integer);
+
+insert into modeles select distinct type, max(places) from avion group by type;
+
+CREATE SEQUENCE numeros START 130 ;
+
+update aeroport set ville=aeroport where ville is null;
+
+insert into ligne select nextval('numeros'), a1.rcode, a2.rcode from aeroport as a1, aeroport as a2 where a1.rcode <> a2.rcode;
+
+et hdepart = '14:10', harrivee = '16:25' where pno = 28 and ano in ( select ano from avion where type = 'A380' and compagnie = 'AIR FRANCE' ) and lno in ( select lno from ligne where depart = 'CDG' and arrivee = 'JFK' ) ;
+
+
+insert into chomeurs (pno, nom, prenom, adresse) select pno, nom, prenom,adressep from pilote where pilote.pno not in ( select pno from vol);
+
+
+delete from  pilote where pno in (select pno from chomeurs)

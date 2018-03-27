@@ -1,0 +1,92 @@
+package ctp;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class ServeurCesar {
+
+	private ServerSocket serveur;
+	private ServerSocket serveurBis;
+	
+	public ServeurCesar(int port) throws IOException {
+		this.serveur = new ServerSocket(port);
+	}
+	
+	public static String transform(String str, int shift) {
+		String result = "";
+		for (char c : str.toCharArray())
+			result += transform(c, shift);
+		return result;
+	}
+
+	private static char transform(char c, int shift) {
+		int startVal;
+		if (('a' <= c) && (c <= 'z'))
+			startVal = 'a';
+		else if (('A' <= c) && (c <= 'Z'))
+			startVal = 'A';
+		else
+			return c;
+		return (char) ((c - startVal + (shift < 0 ? shift + 26 : shift)) % 26 + startVal);
+	}
+	
+	public void traitement() throws IOException {
+		while (true) {
+			//attente d'un client
+			Socket client = serveur.accept();
+			
+			/* Client connecté */
+			BufferedReader reception = null;
+			PrintWriter envoi = new PrintWriter(client.getOutputStream(), true);
+			reception = new BufferedReader(new InputStreamReader(client.getInputStream()));
+			
+			envoi.println("vous êtes connecté au serveur");
+			envoi.println("choisissez udp ou tcp");
+			
+			while (true) {
+				String recu = "";
+				try {
+					recu = reception.readLine();
+				} catch (IOException e) {
+					e.printStackTrace();
+					envoi.println("erreur dans le readLine");
+					client.close();
+					break;
+				}
+				try {
+					if (recu.equals("udp") || recu.equals("UDP")) {
+						System.out.println("le choix est udp");
+						envoi.println("vous avez choisi udp");
+					}
+					else if (recu.equals("tcp") || recu.equals("TCP")) {
+						System.out.println("le choix est tcp");
+						envoi.println("vous avez choisi tcp");
+						
+					}
+					else {
+						System.out.println("mauvaise saisie");
+						envoi.println("mauvaise saisie au revoir");
+						client.close();
+					}
+					System.out.println(recu);
+				} catch(Exception e) {
+					//e.printStackTrace();
+					System.out.println("client déco");
+					client.close();
+					break;
+				}
+			}
+			
+		}
+	}
+	
+	public static void main(String[] args) throws IOException {
+		ServeurCesar serv = new ServeurCesar(12345);
+		serv.traitement();
+	}
+	
+}

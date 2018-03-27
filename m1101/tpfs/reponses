@@ -1,0 +1,17 @@
+q1 cd tpfs/a-faire
+2) /home/infoetu/deschamg/Documents/m1101/tpfs/fait/Gestion
+3) ../fait/Algo
+4) Anglais
+cp Algo2 ../fait/Algo
+mv Anglais English
+mv English ../fait/English
+ln Math ../fait/Abandon
+vi ../fait/Abandon
+cat Math
+ln -s ../fait/Abandon Persevere
+rm ../fait/Abandon
+
+lien dur sur 2 partitions différentes -> utiliser un ln -s
+ln -s /home/infoetu/deschamg/Documents/m1101/tpfs/a-faire/Math /tmp/Sauvegarde
+
+il possède deux noms, le sien et .

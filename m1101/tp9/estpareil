@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "X$1" | grep -qxe "X$2"

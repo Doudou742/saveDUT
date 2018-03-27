@@ -1,0 +1,103 @@
+package projet;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+
+public class Client {
+	
+	/**
+	 * socketPi est la socket de contrôle interprète les commandes reçues du client (sur le canal de controle)
+	 * socketDTP est la socket de transfert des fichiers à fermer après chaque fin de transfert
+	 * PORTPI est le port utilisé pour la socket PI
+	 * PORTDTP est le port utilisé pour la socket DTP
+	 * userName correspond au login demandé lors de la connection 
+	 */
+	
+	private Socket socketPi; 
+	private Socket socketDTP;
+	
+	private final int PORTPI = 9876;
+	private final int PORTDTP = 9875;
+	
+	/**
+	 * Constructeur d'un client qui init les deux sockets (DTP et PI)
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
+	public Client() throws UnknownHostException, IOException {
+		this.socketPi = new Socket("172.18.48.164",PORTPI);
+		//this.socketDTP = new Socket("172.18.48.143",PORTDTP);
+	}
+	
+	public void traitement() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(socketPi.getInputStream()));
+		PrintWriter pw = new PrintWriter(socketPi.getOutputStream(),true);
+		String rep = "";
+		Scanner scan = new Scanner(System.in);
+		String recu = "";
+		
+		while (true) {
+			receptionDonnees(recu,  br);
+			rep = saisieDonnees(scan);
+			
+			if (rep.equals(null) || rep == " " || rep == "" || rep == "\n") {
+				System.out.println("avant vbreak");
+				break;
+			}
+			
+			pw.println(rep);
+			
+			System.out.println("avant reception");
+			receptionDonnees(recu, br);
+			System.out.println("apres reception");
+			/*
+			while ((recu = br.readLine()) != null || recu == "\n") {
+				System.out.println(recu);
+			}*/
+		}
+		this.socketPi.close();
+	}
+	
+	public String saisieDonnees(Scanner scan) {
+		String donnees = "";
+		donnees = scan.nextLine();
+		return donnees;
+	}
+	
+	public void receptionDonnees(String reception, BufferedReader br){
+		char buffer [] = new char [4096];
+		try {
+			//while ((reception = br.readLine()) != null) {
+			int temp = br.read(buffer, 0, 4096);
+			while (temp != -1) {
+				System.out.println(temp);
+				afficheTableauChar(buffer);
+				temp = br.read(buffer, 0, 4096);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("apres readline");
+	}
+	
+	public void afficheTableauChar(char buffer[]) {
+		String rep = "";
+		int tmp = 0;
+		for (int i = 0; i < buffer.length; i++) {
+			rep += buffer[i];
+		}
+		System.out.print(rep);
+	}
+	
+	public static void main(String[] args) throws UnknownHostException, IOException {
+		Client client = new Client();
+		client.traitement();
+	}
+	
+}

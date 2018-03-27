@@ -1,0 +1,11 @@
+#!/bin/bash
+
+PATH=$(cd $(dirname $0); pwd):$PATH
+
+for i in $(echo $PATH | tr ':' ' ')
+do
+    for j in $i/*
+    do
+	est-executable $j 2>/dev/null && echo $j
+    done
+done

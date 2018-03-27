@@ -1,0 +1,8 @@
+CREATE TABLE commande 
+( prix INTEGER,
+qute INTEGER,
+fno INTEGER,
+pno INTEGER,
+CONSTRAINT pk_commande PRIMARY KEY (fno,pno),
+CONSTRAINT fk_fno FOREIGN KEY (fno) REFERENCES fournisseur(fno),
+CONSTRAINT fk_pno FOREIGN KEY (pno) REFERENCES produit(pno));

@@ -1,0 +1,24 @@
+package ctp;
+
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+public class MyThread implements Runnable {
+
+	Socket socket;
+	PrintWriter out;
+	BufferedReader reception;
+
+	public MyThread(Socket client) {
+		this.socket = client;
+	}
+
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

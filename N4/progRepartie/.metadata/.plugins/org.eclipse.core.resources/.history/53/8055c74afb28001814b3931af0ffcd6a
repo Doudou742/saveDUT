@@ -1,0 +1,10 @@
+package fr.ulille.iut;
+
+public class CommandePizza {
+
+	private String client;
+	private Pizza [] listePizzas;
+	private int prix;
+	
+	
+}

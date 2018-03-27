@@ -1,0 +1,44 @@
+package exo4;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+
+public class ClientBeg {
+
+	private Socket socket;
+	private final int PORT = 9876;
+	
+	
+	public ClientBeg() throws  IOException {
+		this.socket = new Socket(InetAddress.getLocalHost(),PORT);
+	}
+	
+	private void traitement() throws InterruptedException {
+		while (true) {
+		Scanner scan = new Scanner(System.in);
+		String phraseARepeter = "";
+		String niveauBeg = "";
+		int repeterFois = 0;
+		System.out.println("Entrez une phrase: ");
+		phraseARepeter = scan.nextLine();
+		System.out.println("Niveau de beg: ");
+		niveauBeg = scan.nextLine();
+		try {
+			repeterFois = Integer.parseInt(niveauBeg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("phrase: " + phraseARepeter + repeterFois + " fois");
+		}
+		//Thread.sleep(6000);
+	}
+	
+	public static void main(String[] args) throws UnknownHostException, IOException, InterruptedException {
+		ClientBeg clientBeg = new ClientBeg();
+		clientBeg.traitement();
+	}
+	
+}

@@ -1,0 +1,44 @@
+class pendu extends Program{
+
+    char[] motADeviner;
+    
+
+    public void saisir(){
+	String rep = "";
+	println("saisir un mot qu'il faudra deviner: ");
+	rep = readString();
+	motADeviner = new char[rep.length];
+	for ( int idx = 0; idx < rep.length; idx++ ){
+	    motADeviner[idx] = charAt(rep,idx);
+	    println(motADeviner[idx]);
+	}
+    }
+
+
+
+
+
+
+    void algorithm(){
+
+	//saisir un mot à deviner
+	//transformer le mot en mot étoilé
+	//afficher le mot étoilé
+	//saisir un char
+	//vérifier si le char saisie est présent dans le mot
+	//si le char est présent, remplacer l'étoile correspondante par le char
+	//sinon enlever une vie
+	//vérifie si le mot entier a été touver
+	//afficher le mot étoilé avec les char remplacés
+
+
+
+
+    }
+
+
+
+
+
+
+}

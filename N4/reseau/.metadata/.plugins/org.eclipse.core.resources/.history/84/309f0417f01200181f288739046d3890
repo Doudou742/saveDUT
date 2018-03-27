@@ -1,0 +1,52 @@
+package exo1;
+
+import java.io.File;
+
+public class CopieBinaire {
+
+	private String src;
+	private String dst;
+	
+	public CopieBinaire(String src, String dst) {
+		this.src = src;
+		this.dst = dst;
+	}
+	
+	public boolean verifieExistenceFichierSource(File f) {
+		if (f.exists() && f.isFile()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean verifieExistenceFichierDestination(File f) {
+		if (f.exists()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public void copie() {
+		if (verifieExistenceFichierSource(new File(src)) && !verifieExistenceFichierDestination(new File(dst))) {
+			
+		}
+		
+		
+		//System.out.println(verifieExistenceFichierSource(new File("/home/infoetu/deschamg")));
+	}
+	
+	public static void main(String[] args) {
+		CopieBinaire cb = new CopieBinaire("/home/infoetu/deschamg/Do", "");
+		cb.copie();
+	}
+	
+	
+	
+	
+	
+	
+}
